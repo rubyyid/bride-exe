@@ -6,8 +6,19 @@ export default function BrideExe() {
   const [booted, setBooted] = React.useState(false)
   const [selectedModule, setSelectedModule] = React.useState<any>(null)
   const [task, setTask] = React.useState('')
+  const [photos, setPhotos] = React.useState<string[]>([])
+
+  const fileInputRef = React.useRef<HTMLInputElement | null>(null)
 
   const modules = [
+    {
+      title: 'PHOTOBOOTH',
+      emoji: '📸',
+      color: 'from-pink-500 to-purple-600',
+      description: 'Take photos together.',
+      tasks: ['Capture memories together.'],
+    },
+
     {
       title: 'CHAOS',
       emoji: '🎲',
@@ -21,6 +32,7 @@ export default function BrideExe() {
         'Freeze for 10 seconds.',
       ],
     },
+
     {
       title: 'AI SCAN',
       emoji: '🤖',
@@ -34,6 +46,7 @@ export default function BrideExe() {
         'Certified party menace.',
       ],
     },
+
     {
       title: 'ROULETTE',
       emoji: '🎰',
@@ -45,45 +58,6 @@ export default function BrideExe() {
         'DOUBLE CHAOS',
         'SHOT TIME',
         'BRIDE CHOICE',
-      ],
-    },
-    {
-      title: 'DRINKING GAMES',
-      emoji: '🍸',
-      color: 'from-rose-500 to-orange-500',
-      description: 'Party drinking mode.',
-      tasks: [
-        'Tallest person drinks.',
-        'Bride drinks twice.',
-        'Everyone wearing black drinks.',
-        'Pass your drink left.',
-        'Take a sip if you use TikTok daily.',
-      ],
-    },
-    {
-      title: 'TEAM MODE',
-      emoji: '👯',
-      color: 'from-pink-400 to-purple-600',
-      description: 'Group challenges.',
-      tasks: [
-        'Recreate Titanic pose.',
-        'Best synchronized dance wins.',
-        'Create fake wedding poster.',
-        'Fastest team selfie wins.',
-        'Make dramatic runway walk.',
-      ],
-    },
-    {
-      title: 'TIMER BATTLE',
-      emoji: '⏳',
-      color: 'from-red-500 to-pink-600',
-      description: 'Fast timed challenges.',
-      tasks: [
-        'Group pose in 10 seconds.',
-        'Find something pink NOW.',
-        'Make a human pyramid.',
-        'Hide someone’s phone.',
-        'Catwalk challenge activated.',
       ],
     },
   ]
@@ -106,6 +80,23 @@ export default function BrideExe() {
       ]
 
     setTask(randomTask)
+  }
+
+  const handlePhotoUpload = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const files = event.target.files
+
+    if (!files) return
+
+    const newPhotos: string[] = []
+
+    Array.from(files).forEach((file) => {
+      const imageUrl = URL.createObjectURL(file)
+      newPhotos.push(imageUrl)
+    })
+
+    setPhotos((prev) => [...newPhotos, ...prev])
   }
 
   return (
@@ -148,32 +139,78 @@ export default function BrideExe() {
             ← BACK
           </button>
 
-          <div className="text-center">
-            <div className="text-7xl sm:text-9xl mb-8">
-              {selectedModule.emoji}
-            </div>
+          {selectedModule.title === 'PHOTOBOOTH' ? (
+            <div className="text-center max-w-6xl mx-auto">
+              <div className="text-7xl sm:text-9xl mb-8">📸</div>
 
-            <h2 className="text-4xl sm:text-7xl font-black mb-6">
-              {selectedModule.title}
-            </h2>
+              <h2 className="text-4xl sm:text-7xl font-black mb-6">
+                PHOTOBOOTH
+              </h2>
 
-            <div className="rounded-[2rem] bg-black/20 backdrop-blur-xl p-6 sm:p-10 max-w-3xl mx-auto mb-8">
-              <p className="uppercase tracking-[0.3em] text-xs sm:text-sm mb-6 opacity-70">
-                GENERATED TASK
+              <p className="text-white/80 mb-10 text-lg sm:text-2xl">
+                Capture memories from the party.
               </p>
 
-              <p className="text-2xl sm:text-5xl font-black leading-tight">
-                {task}
-              </p>
-            </div>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                capture="environment"
+                multiple
+                onChange={handlePhotoUpload}
+                className="hidden"
+              />
 
-            <button
-              onClick={generateTask}
-              className="rounded-3xl bg-black/30 px-8 py-5 text-lg sm:text-2xl font-black hover:bg-black/40 transition-all duration-300"
-            >
-              GENERATE NEW TASK
-            </button>
-          </div>
+              <button
+                onClick={() => fileInputRef.current?.click()}
+                className="rounded-3xl bg-black/30 px-8 py-5 text-lg sm:text-2xl font-black hover:bg-black/40 transition-all duration-300 mb-10"
+              >
+                OPEN CAMERA
+              </button>
+
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                {photos.map((photo, index) => (
+                  <div
+                    key={index}
+                    className="rounded-[2rem] overflow-hidden border border-white/10 bg-black/20"
+                  >
+                    <img
+                      src={photo}
+                      alt="party"
+                      className="w-full h-48 object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="text-center">
+              <div className="text-7xl sm:text-9xl mb-8">
+                {selectedModule.emoji}
+              </div>
+
+              <h2 className="text-4xl sm:text-7xl font-black mb-6">
+                {selectedModule.title}
+              </h2>
+
+              <div className="rounded-[2rem] bg-black/20 backdrop-blur-xl p-6 sm:p-10 max-w-3xl mx-auto mb-8">
+                <p className="uppercase tracking-[0.3em] text-xs sm:text-sm mb-6 opacity-70">
+                  GENERATED TASK
+                </p>
+
+                <p className="text-2xl sm:text-5xl font-black leading-tight">
+                  {task}
+                </p>
+              </div>
+
+              <button
+                onClick={generateTask}
+                className="rounded-3xl bg-black/30 px-8 py-5 text-lg sm:text-2xl font-black hover:bg-black/40 transition-all duration-300"
+              >
+                GENERATE NEW TASK
+              </button>
+            </div>
+          )}
         </div>
       ) : (
         <div className="relative z-10 min-h-screen p-6 sm:p-10">
