@@ -30,19 +30,6 @@ export default function BrideExe() {
       tasks: ['Share anonymous party confessions.'],
     },
 
-    {
-      title: 'CHAOS',
-      emoji: '🎲',
-      color: 'from-pink-500 to-red-500',
-      description: 'Random party chaos.',
-      tasks: [
-        'Everyone switch seats.',
-        'Talk in accents for 2 minutes.',
-        'Dance battle NOW.',
-        'Take a dramatic selfie.',
-        'Freeze for 10 seconds.',
-      ],
-    },
 
   {
   title: 'SHOT ROULETTE',
