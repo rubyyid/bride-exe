@@ -5,18 +5,19 @@ import React from 'react'
 export default function BrideExe() {
   const [booted, setBooted] = React.useState(false)
   const [selectedModule, setSelectedModule] = React.useState<any>(null)
+  const [task, setTask] = React.useState('')
 
   const modules = [
     {
       title: 'CHAOS',
       emoji: '🎲',
       color: 'from-pink-500 to-red-500',
-      description: 'Generate random chaos tasks.',
+      description: 'Random party chaos.',
       tasks: [
         'Everyone switch seats.',
-        'Take a dramatic group selfie.',
-        'Speak in accents for 2 minutes.',
-        'Dance battle activated.',
+        'Talk in accents for 2 minutes.',
+        'Dance battle NOW.',
+        'Take a dramatic selfie.',
         'Freeze for 10 seconds.',
       ],
     },
@@ -24,13 +25,13 @@ export default function BrideExe() {
       title: 'AI SCAN',
       emoji: '🤖',
       color: 'from-purple-500 to-pink-500',
-      description: 'Scan your party energy.',
+      description: 'Scan party energy.',
       tasks: [
-        '94% likely to survive tonight.',
-        'Certified chaos queen detected.',
-        'Dangerously overdressed.',
+        '92% chaos detected.',
         'Main character energy unlocked.',
-        'Flirting levels critical.',
+        'Dangerously overdressed.',
+        'Flirting level critical.',
+        'Certified party menace.',
       ],
     },
     {
@@ -39,56 +40,72 @@ export default function BrideExe() {
       color: 'from-fuchsia-500 to-violet-500',
       description: 'Spin the chaos wheel.',
       tasks: [
+        'EVERYONE DRINKS',
+        'SAFE MODE',
+        'DOUBLE CHAOS',
         'SHOT TIME',
         'BRIDE CHOICE',
-        'DOUBLE CHAOS',
-        'SAFE MODE',
-        'EVERYONE DRINKS',
       ],
     },
     {
       title: 'DRINKING GAMES',
       emoji: '🍸',
-      color: 'from-rose-500 to-orange-400',
-      description: 'Party drinking challenges.',
+      color: 'from-rose-500 to-orange-500',
+      description: 'Party drinking mode.',
       tasks: [
         'Tallest person drinks.',
-        'Everyone with black clothes drinks.',
-        'Take a sip if you use TikTok daily.',
-        'Pass your drink left.',
         'Bride drinks twice.',
-      ],
-    },
-    {
-      title: 'TIMER BATTLE',
-      emoji: '⏳',
-      color: 'from-red-500 to-pink-600',
-      description: 'Fast challenge mode.',
-      tasks: [
-        'You have 15 seconds to make a pyramid.',
-        'Group pose in 10 seconds.',
-        'Find something pink NOW.',
-        'Create a runway walk.',
-        'Hide someone’s phone.',
+        'Everyone wearing black drinks.',
+        'Pass your drink left.',
+        'Take a sip if you use TikTok daily.',
       ],
     },
     {
       title: 'TEAM MODE',
       emoji: '👯',
       color: 'from-pink-400 to-purple-600',
-      description: 'Group party challenges.',
+      description: 'Group challenges.',
       tasks: [
         'Recreate Titanic pose.',
         'Best synchronized dance wins.',
-        'Create wedding movie poster.',
+        'Create fake wedding poster.',
         'Fastest team selfie wins.',
-        'Make a fake engagement scene.',
+        'Make dramatic runway walk.',
+      ],
+    },
+    {
+      title: 'TIMER BATTLE',
+      emoji: '⏳',
+      color: 'from-red-500 to-pink-600',
+      description: 'Fast timed challenges.',
+      tasks: [
+        'Group pose in 10 seconds.',
+        'Find something pink NOW.',
+        'Make a human pyramid.',
+        'Hide someone’s phone.',
+        'Catwalk challenge activated.',
       ],
     },
   ]
 
-  const getRandomTask = (tasks: string[]) => {
-    return tasks[Math.floor(Math.random() * tasks.length)]
+  const openModule = (module: any) => {
+    setSelectedModule(module)
+
+    const randomTask =
+      module.tasks[Math.floor(Math.random() * module.tasks.length)]
+
+    setTask(randomTask)
+  }
+
+  const generateTask = () => {
+    if (!selectedModule) return
+
+    const randomTask =
+      selectedModule.tasks[
+        Math.floor(Math.random() * selectedModule.tasks.length)
+      ]
+
+    setTask(randomTask)
   }
 
   return (
@@ -105,123 +122,97 @@ export default function BrideExe() {
         <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-6 text-center">
           <div className="text-8xl mb-8">💋</div>
 
-          <h1 className="text-7xl font-black bg-gradient-to-r from-pink-400 to-purple-500 text-transparent bg-clip-text mb-4">
+          <h1 className="text-5xl sm:text-7xl font-black bg-gradient-to-r from-pink-400 to-purple-500 text-transparent bg-clip-text mb-4">
             BRIDE.EXE
           </h1>
 
-          <p className="uppercase tracking-[0.5em] text-zinc-400 text-sm mb-12">
+          <p className="uppercase tracking-[0.4em] text-zinc-400 text-xs sm:text-sm mb-12">
             SYSTEM READY
           </p>
 
           <button
             onClick={() => setBooted(true)}
-            className="rounded-3xl bg-gradient-to-r from-pink-500 to-purple-600 px-12 py-6 text-2xl font-black shadow-2xl shadow-pink-500/40 hover:scale-105 transition-all duration-300"
+            className="rounded-3xl bg-gradient-to-r from-pink-500 to-purple-600 px-8 sm:px-12 py-5 text-lg sm:text-2xl font-black shadow-2xl shadow-pink-500/40 hover:scale-105 transition-all duration-300"
           >
             INITIALIZE PARTY
           </button>
         </div>
-      ) : (
-        <div className="relative z-10 p-6">
-          {/* Header */}
-          <div className="flex items-center justify-between mb-10">
-            <div>
-              <h1 className="text-5xl font-black bg-gradient-to-r from-pink-400 to-purple-500 text-transparent bg-clip-text">
-                PARTY CONTROL PANEL
-              </h1>
+      ) : selectedModule ? (
+        <div
+          className={`relative z-10 min-h-screen flex flex-col justify-center p-6 sm:p-10 bg-gradient-to-br ${selectedModule.color}`}
+        >
+          <button
+            onClick={() => setSelectedModule(null)}
+            className="absolute top-6 left-6 rounded-2xl bg-black/20 px-5 py-3 font-bold backdrop-blur-xl hover:bg-black/30 transition-all"
+          >
+            ← BACK
+          </button>
 
-              <p className="text-zinc-400 mt-2">
-                Select a game module
+          <div className="text-center">
+            <div className="text-7xl sm:text-9xl mb-8">
+              {selectedModule.emoji}
+            </div>
+
+            <h2 className="text-4xl sm:text-7xl font-black mb-6">
+              {selectedModule.title}
+            </h2>
+
+            <div className="rounded-[2rem] bg-black/20 backdrop-blur-xl p-6 sm:p-10 max-w-3xl mx-auto mb-8">
+              <p className="uppercase tracking-[0.3em] text-xs sm:text-sm mb-6 opacity-70">
+                GENERATED TASK
+              </p>
+
+              <p className="text-2xl sm:text-5xl font-black leading-tight">
+                {task}
               </p>
             </div>
 
-            <div className="rounded-full border border-pink-500/30 bg-white/5 px-5 py-2 backdrop-blur-xl">
-              SYSTEM ACTIVE
-            </div>
+            <button
+              onClick={generateTask}
+              className="rounded-3xl bg-black/30 px-8 py-5 text-lg sm:text-2xl font-black hover:bg-black/40 transition-all duration-300"
+            >
+              GENERATE NEW TASK
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="relative z-10 min-h-screen p-6 sm:p-10">
+          <div className="mb-10 text-center">
+            <h1 className="text-4xl sm:text-6xl font-black bg-gradient-to-r from-pink-400 to-purple-500 text-transparent bg-clip-text mb-4">
+              PARTY CONTROL PANEL
+            </h1>
+
+            <p className="text-zinc-400">
+              Select a game module
+            </p>
           </div>
 
-          {/* Main layout */}
-          <div className="grid lg:grid-cols-3 gap-6">
-            {/* MENU */}
-            <div className="lg:col-span-1 space-y-4">
-              {modules.map((module, index) => (
-                <button
-                  key={index}
-                  onClick={() => setSelectedModule(module)}
-                  className={`w-full rounded-[2rem] bg-gradient-to-br ${module.color} p-6 text-left shadow-2xl hover:scale-[1.02] transition-all duration-300`}
-                >
-                  <div className="text-5xl mb-4">{module.emoji}</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 max-w-7xl mx-auto">
+            {modules.map((module, index) => (
+              <button
+                key={index}
+                onClick={() => openModule(module)}
+                className={`rounded-[2rem] bg-gradient-to-br ${module.color} p-8 text-left shadow-2xl hover:scale-[1.03] transition-all duration-300 min-h-[260px] flex flex-col justify-between`}
+              >
+                <div>
+                  <div className="text-6xl mb-6">
+                    {module.emoji}
+                  </div>
 
-                  <h2 className="text-2xl font-black mb-2">
+                  <h2 className="text-3xl font-black mb-3">
                     {module.title}
                   </h2>
 
-                  <p className="text-white/80">
+                  <p className="text-white/80 text-lg">
                     {module.description}
                   </p>
-                </button>
-              ))}
-            </div>
-
-            {/* MODULE SCREEN */}
-            <div className="lg:col-span-2">
-              {!selectedModule ? (
-                <div className="rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-xl min-h-[700px] flex flex-col items-center justify-center text-center p-10">
-                  <div className="text-8xl mb-8">✨</div>
-
-                  <h2 className="text-5xl font-black mb-4">
-                    SELECT A MODULE
-                  </h2>
-
-                  <p className="text-zinc-400 max-w-md">
-                    Choose a party mode from the control panel to begin the chaos.
-                  </p>
                 </div>
-              ) : (
-                <div
-                  className={`rounded-[2rem] bg-gradient-to-br ${selectedModule.color} min-h-[700px] p-10 shadow-2xl`}
-                >
-                  <div className="flex items-center justify-between mb-10">
-                    <div>
-                      <div className="text-7xl mb-4">
-                        {selectedModule.emoji}
-                      </div>
 
-                      <h2 className="text-6xl font-black">
-                        {selectedModule.title}
-                      </h2>
-                    </div>
-
-                    <button
-                      onClick={() => setSelectedModule(null)}
-                      className="rounded-2xl bg-black/20 px-6 py-3 font-bold backdrop-blur-xl hover:bg-black/30 transition-all"
-                    >
-                      CLOSE
-                    </button>
-                  </div>
-
-                  <div className="rounded-[2rem] bg-black/20 backdrop-blur-xl p-10 mb-8">
-                    <h3 className="uppercase tracking-[0.3em] text-sm mb-6 opacity-70">
-                      GENERATED TASK
-                    </h3>
-
-                    <p className="text-4xl font-black leading-tight">
-                      {getRandomTask(selectedModule.tasks)}
-                    </p>
-                  </div>
-
-                  <button
-                    onClick={() =>
-                      setSelectedModule({
-                        ...selectedModule,
-                      })
-                    }
-                    className="w-full rounded-3xl bg-black/30 py-6 text-2xl font-black hover:bg-black/40 transition-all duration-300"
-                  >
-                    GENERATE NEW TASK
-                  </button>
+                <div className="mt-8 uppercase tracking-[0.3em] text-sm opacity-70">
+                  TAP TO OPEN
                 </div>
-              )}
-            </div>
+              </button>
+            ))}
           </div>
         </div>
       )}
