@@ -44,20 +44,6 @@ export default function BrideExe() {
       ],
     },
 
-    {
-      title: 'AI SCAN',
-      emoji: '🤖',
-      color: 'from-purple-500 to-pink-500',
-      description: 'Scan party energy.',
-      tasks: [
-        '92% chaos detected.',
-        'Main character energy unlocked.',
-        'Dangerously overdressed.',
-        'Flirting level critical.',
-        'Certified party menace.',
-      ],
-    },
-
   {
   title: 'SHOT ROULETTE',
   emoji: '🥂',
