@@ -58,20 +58,36 @@ export default function BrideExe() {
       ],
     },
 
-    {
-      title: 'ROULETTE',
-      emoji: '🎰',
-      color: 'from-fuchsia-500 to-violet-500',
-      description: 'Spin the chaos wheel.',
-      tasks: [
-        'EVERYONE DRINKS',
-        'SAFE MODE',
-        'DOUBLE CHAOS',
-        'SHOT TIME',
-        'BRIDE CHOICE',
-      ],
-    },
+  {
+  title: 'SHOT ROULETTE',
+  emoji: '🥂',
+  color: 'from-orange-400 to-pink-600',
+  description: 'Random drinking challenges.',
+  tasks: [
+    'DOUBLE SHOTS 🍸🍸',
+    'EVERYONE DRINKS 🥂',
+    'SAFE CARD 🛡️',
+    'PICK A VICTIM 😈',
+    'WATER BREAK 💧',
+    'BRIDE CHOOSES 👰',
+    'SHOTGUN ROUND ⚠️',
+    'TAKE 3 SIPS 🍷',
+    'GIVE OUT 2 SHOTS 🎯',
+    'NO PHONE FOR 5 MIN 📵',
+    'DANCE BEFORE YOU DRINK 💃',
+    'LAST PERSON TO STAND DRINKS ⏳',
+    'TRUTH OR SHOT 🤐',
+    'SWITCH DRINKS 🔄',
+    'EVERYONE CHEERS 🍾',
+    'MYSTERY PUNISHMENT 🎲',
+    'MOST LIKELY TO GET MARRIED NEXT DRINKS 💍',
+    'FINISH YOUR DRINK 😭',
+    'CHOOSE A DRINKING PARTNER 👯',
+    'SHOT QUEEN ACTIVATED 👑',
+  ],
+}
   ]
+
 
   const openModule = (module: any) => {
     setSelectedModule(module)
