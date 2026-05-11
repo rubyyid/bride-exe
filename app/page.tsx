@@ -17,51 +17,23 @@ export default function BrideExe() {
     {
       title: 'PHOTOBOOTH',
       emoji: '📸',
-      color: 'from-pink-500 to-purple-600',
-      description: 'Take photos together.',
-      tasks: ['Capture memories together.'],
+      color: 'from-rose-400 to-pink-500',
+      description: 'Capture memories together.',
+      tasks: ['Take cute party photos.'],
     },
 
     {
       title: 'CONFESSIONS',
       emoji: '💌',
-      color: 'from-pink-400 to-rose-500',
+      color: 'from-pink-400 to-rose-400',
       description: 'Leave anonymous messages.',
-      tasks: ['Share anonymous party confessions.'],
-    },
-
-    {
-      title: 'CHAOS',
-      emoji: '🎲',
-      color: 'from-pink-500 to-red-500',
-      description: 'Random party chaos.',
-      tasks: [
-        'Everyone switch seats.',
-        'Talk in accents for 2 minutes.',
-        'Dance battle NOW.',
-        'Take a dramatic selfie.',
-        'Freeze for 10 seconds.',
-      ],
-    },
-
-    {
-      title: 'AI SCAN',
-      emoji: '🤖',
-      color: 'from-purple-500 to-pink-500',
-      description: 'Scan party energy.',
-      tasks: [
-        '92% chaos detected.',
-        'Main character energy unlocked.',
-        'Dangerously overdressed.',
-        'Flirting level critical.',
-        'Certified party menace.',
-      ],
+      tasks: ['Share anonymous confessions.'],
     },
 
     {
       title: 'SHOT ROULETTE',
       emoji: '🥂',
-      color: 'from-orange-400 to-pink-600',
+      color: 'from-red-400 to-pink-500',
       description: 'Random drinking challenges.',
       tasks: [
         'DOUBLE SHOTS 🍸🍸',
@@ -80,10 +52,8 @@ export default function BrideExe() {
         'SWITCH DRINKS 🔄',
         'EVERYONE CHEERS 🍾',
         'MYSTERY PUNISHMENT 🎲',
-        'MOST LIKELY TO GET MARRIED NEXT DRINKS 💍',
         'FINISH YOUR DRINK 😭',
         'CHOOSE A DRINKING PARTNER 👯',
-        'SHOT QUEEN ACTIVATED 👑',
       ],
     },
   ]
@@ -139,30 +109,27 @@ export default function BrideExe() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white overflow-hidden relative">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-pink-900/20 via-black to-purple-900/20" />
-
+    <div className="min-h-screen text-zinc-900 overflow-hidden relative bg-gradient-to-br from-rose-100 via-pink-50 to-red-100">
       {/* Glow */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-pink-500/20 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute top-0 left-0 w-96 h-96 bg-rose-300/30 rounded-full blur-3xl" />
 
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-pink-300/30 rounded-full blur-3xl" />
 
       {!booted ? (
         <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-6 text-center">
           <div className="text-8xl mb-8">💋</div>
 
-          <h1 className="text-5xl sm:text-7xl font-black bg-gradient-to-r from-pink-400 to-purple-500 text-transparent bg-clip-text mb-4">
+          <h1 className="text-5xl sm:text-7xl font-black bg-gradient-to-r from-rose-500 to-pink-500 text-transparent bg-clip-text mb-4">
             BRIDE.EXE
           </h1>
 
-          <p className="uppercase tracking-[0.4em] text-zinc-400 text-xs sm:text-sm mb-12">
+          <p className="uppercase tracking-[0.4em] text-zinc-500 text-xs sm:text-sm mb-12">
             SYSTEM READY
           </p>
 
           <button
             onClick={() => setBooted(true)}
-            className="rounded-3xl bg-gradient-to-r from-pink-500 to-purple-600 px-8 sm:px-12 py-5 text-lg sm:text-2xl font-black shadow-2xl shadow-pink-500/40 hover:scale-105 transition-all duration-300"
+            className="rounded-3xl bg-gradient-to-r from-rose-400 to-pink-500 px-8 sm:px-12 py-5 text-lg sm:text-2xl text-white font-black shadow-2xl hover:scale-105 transition-all duration-300"
           >
             INITIALIZE PARTY
           </button>
@@ -177,7 +144,7 @@ export default function BrideExe() {
         >
           <button
             onClick={() => setSelectedModule(null)}
-            className="absolute top-6 left-6 rounded-2xl bg-black/20 px-5 py-3 font-bold backdrop-blur-xl hover:bg-black/30 transition-all"
+            className="absolute top-6 left-6 rounded-2xl bg-white/40 backdrop-blur-2xl px-5 py-3 font-bold hover:bg-white/60 transition-all"
           >
             ← BACK
           </button>
@@ -186,7 +153,7 @@ export default function BrideExe() {
             <div className="text-center max-w-6xl mx-auto">
               <div className="text-7xl sm:text-9xl mb-8">📸</div>
 
-              <h2 className="text-4xl sm:text-7xl font-black mb-6">
+              <h2 className="text-4xl sm:text-7xl font-black mb-6 text-white">
                 PHOTOBOOTH
               </h2>
 
@@ -206,7 +173,7 @@ export default function BrideExe() {
 
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className="rounded-3xl bg-black/30 px-8 py-5 text-lg sm:text-2xl font-black hover:bg-black/40 transition-all duration-300 mb-10"
+                className="rounded-3xl bg-white/30 backdrop-blur-2xl px-8 py-5 text-lg sm:text-2xl text-white font-black hover:bg-white/40 transition-all duration-300 mb-10"
               >
                 OPEN CAMERA
               </button>
@@ -215,7 +182,7 @@ export default function BrideExe() {
                 {photos.map((photo, index) => (
                   <div
                     key={index}
-                    className="relative rounded-[2rem] overflow-hidden border border-white/10 bg-black/20"
+                    className="relative rounded-[2rem] overflow-hidden border border-white/20 bg-white/20 backdrop-blur-2xl"
                   >
                     <img
                       src={photo}
@@ -225,7 +192,7 @@ export default function BrideExe() {
 
                     <button
                       onClick={() => deletePhoto(index)}
-                      className="absolute top-3 right-3 bg-black/70 rounded-full w-10 h-10 text-white font-black hover:bg-red-500 transition-all"
+                      className="absolute top-3 right-3 bg-white/80 rounded-full w-10 h-10 text-black font-black hover:bg-red-400 hover:text-white transition-all"
                     >
                       ✕
                     </button>
@@ -237,7 +204,7 @@ export default function BrideExe() {
             <div className="text-center max-w-4xl mx-auto">
               <div className="text-7xl sm:text-9xl mb-8">💌</div>
 
-              <h2 className="text-4xl sm:text-7xl font-black mb-6">
+              <h2 className="text-4xl sm:text-7xl font-black mb-6 text-white">
                 CONFESSIONS
               </h2>
 
@@ -245,19 +212,19 @@ export default function BrideExe() {
                 Leave anonymous party messages.
               </p>
 
-              <div className="rounded-[2rem] bg-black/20 backdrop-blur-xl p-6 mb-8">
+              <div className="rounded-[2rem] bg-white/20 backdrop-blur-2xl p-6 mb-8">
                 <textarea
                   value={messageInput}
                   onChange={(e) => setMessageInput(e.target.value)}
                   placeholder="Type anonymous message..."
-                  className="w-full h-32 rounded-2xl bg-black/30 border border-white/10 p-4 text-white placeholder:text-zinc-400 outline-none resize-none"
+                  className="w-full h-32 rounded-2xl bg-white/40 border border-white/20 p-4 text-zinc-900 placeholder:text-zinc-500 outline-none resize-none"
                 />
 
                 <button
                   onClick={addMessage}
-                  className="mt-4 rounded-3xl bg-black/30 px-8 py-4 text-lg font-black hover:bg-black/40 transition-all duration-300"
+                  className="mt-4 rounded-3xl bg-white/30 backdrop-blur-2xl px-8 py-4 text-lg text-white font-black hover:bg-white/40 transition-all duration-300"
                 >
-                  SEND ANONYMOUS MESSAGE
+                  SEND MESSAGE
                 </button>
               </div>
 
@@ -265,13 +232,13 @@ export default function BrideExe() {
                 {messages.map((message, index) => (
                   <div
                     key={index}
-                    className="rounded-[2rem] bg-black/20 backdrop-blur-xl p-6 border border-white/10"
+                    className="rounded-[2rem] bg-white/20 backdrop-blur-2xl p-6 border border-white/20"
                   >
-                    <div className="text-pink-200 text-sm uppercase tracking-[0.3em] mb-3">
+                    <div className="text-white text-sm uppercase tracking-[0.3em] mb-3">
                       Anonymous
                     </div>
 
-                    <p className="text-xl leading-relaxed">
+                    <p className="text-xl text-white leading-relaxed">
                       {message}
                     </p>
                   </div>
@@ -284,41 +251,41 @@ export default function BrideExe() {
                 {selectedModule.emoji}
               </div>
 
-              <h2 className="text-4xl sm:text-7xl font-black mb-6">
+              <h2 className="text-4xl sm:text-7xl font-black mb-6 text-white">
                 {selectedModule.title}
               </h2>
 
-              <div className="rounded-[2rem] bg-black/20 backdrop-blur-xl p-6 sm:p-10 max-w-3xl mx-auto mb-8">
-                <p className="uppercase tracking-[0.3em] text-xs sm:text-sm mb-6 opacity-70">
-                  GENERATED TASK
+              <div className="rounded-[2rem] bg-white/20 backdrop-blur-2xl p-6 sm:p-10 max-w-3xl mx-auto mb-8 border border-white/20">
+                <p className="uppercase tracking-[0.3em] text-xs sm:text-sm mb-6 text-white/70">
+                  YOUR CHALLENGE
                 </p>
 
-                <p className="text-2xl sm:text-5xl font-black leading-tight">
+                <p className="text-2xl sm:text-5xl text-white font-black leading-tight">
                   {task}
                 </p>
               </div>
 
               <button
                 onClick={generateTask}
-                className="rounded-3xl bg-black/30 px-8 py-5 text-lg sm:text-2xl font-black hover:bg-black/40 transition-all duration-300"
+                className="rounded-3xl bg-white/30 backdrop-blur-2xl px-8 py-5 text-lg sm:text-2xl text-white font-black hover:bg-white/40 transition-all duration-300"
               >
-                GENERATE NEW TASK
+                NEW CHALLENGE
               </button>
             </div>
           )}
 
-          <p className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/60 text-sm">
+          <p className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/70 text-sm">
             Created by Ida Slunjski
           </p>
         </div>
       ) : (
         <div className="relative z-10 min-h-screen p-6 sm:p-10">
           <div className="mb-10 text-center">
-            <h1 className="text-4xl sm:text-6xl font-black bg-gradient-to-r from-pink-400 to-purple-500 text-transparent bg-clip-text mb-4">
+            <h1 className="text-4xl sm:text-6xl font-black bg-gradient-to-r from-rose-500 to-pink-500 text-transparent bg-clip-text mb-4">
               PARTY CONTROL PANEL
             </h1>
 
-            <p className="text-zinc-400">
+            <p className="text-zinc-500">
               Select a game module
             </p>
           </div>
@@ -335,7 +302,7 @@ export default function BrideExe() {
                     {module.emoji}
                   </div>
 
-                  <h2 className="text-3xl font-black mb-3">
+                  <h2 className="text-3xl text-white font-black mb-3">
                     {module.title}
                   </h2>
 
@@ -344,7 +311,7 @@ export default function BrideExe() {
                   </p>
                 </div>
 
-                <div className="mt-8 uppercase tracking-[0.3em] text-sm opacity-70">
+                <div className="mt-8 uppercase tracking-[0.3em] text-sm text-white/70">
                   TAP TO OPEN
                 </div>
               </button>
