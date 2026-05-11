@@ -6,7 +6,10 @@ export default function BrideExe() {
   const [booted, setBooted] = React.useState(false)
   const [selectedModule, setSelectedModule] = React.useState<any>(null)
   const [task, setTask] = React.useState('')
+
   const [photos, setPhotos] = React.useState<string[]>([])
+  const [messages, setMessages] = React.useState<string[]>([])
+  const [messageInput, setMessageInput] = React.useState('')
 
   const fileInputRef = React.useRef<HTMLInputElement | null>(null)
 
@@ -17,6 +20,14 @@ export default function BrideExe() {
       color: 'from-pink-500 to-purple-600',
       description: 'Take photos together.',
       tasks: ['Capture memories together.'],
+    },
+
+    {
+      title: 'CONFESSIONS',
+      emoji: '💌',
+      color: 'from-pink-400 to-rose-500',
+      description: 'Leave anonymous messages.',
+      tasks: ['Share anonymous party confessions.'],
     },
 
     {
@@ -80,6 +91,13 @@ export default function BrideExe() {
       ]
 
     setTask(randomTask)
+  }
+
+  const addMessage = () => {
+    if (!messageInput.trim()) return
+
+    setMessages((prev) => [messageInput, ...prev])
+    setMessageInput('')
   }
 
   const handlePhotoUpload = (
@@ -179,6 +197,51 @@ export default function BrideExe() {
                       alt="party"
                       className="w-full h-48 object-cover"
                     />
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : selectedModule.title === 'CONFESSIONS' ? (
+            <div className="text-center max-w-4xl mx-auto">
+              <div className="text-7xl sm:text-9xl mb-8">💌</div>
+
+              <h2 className="text-4xl sm:text-7xl font-black mb-6">
+                CONFESSIONS
+              </h2>
+
+              <p className="text-white/80 mb-10 text-lg sm:text-2xl">
+                Leave anonymous party messages.
+              </p>
+
+              <div className="rounded-[2rem] bg-black/20 backdrop-blur-xl p-6 mb-8">
+                <textarea
+                  value={messageInput}
+                  onChange={(e) => setMessageInput(e.target.value)}
+                  placeholder="Type anonymous message..."
+                  className="w-full h-32 rounded-2xl bg-black/30 border border-white/10 p-4 text-white placeholder:text-zinc-400 outline-none resize-none"
+                />
+
+                <button
+                  onClick={addMessage}
+                  className="mt-4 rounded-3xl bg-black/30 px-8 py-4 text-lg font-black hover:bg-black/40 transition-all duration-300"
+                >
+                  SEND ANONYMOUS MESSAGE
+                </button>
+              </div>
+
+              <div className="space-y-4 text-left">
+                {messages.map((message, index) => (
+                  <div
+                    key={index}
+                    className="rounded-[2rem] bg-black/20 backdrop-blur-xl p-6 border border-white/10"
+                  >
+                    <div className="text-pink-200 text-sm uppercase tracking-[0.3em] mb-3">
+                      Anonymous
+                    </div>
+
+                    <p className="text-xl leading-relaxed">
+                      {message}
+                    </p>
                   </div>
                 ))}
               </div>
