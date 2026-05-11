@@ -30,37 +30,63 @@ export default function BrideExe() {
       tasks: ['Share anonymous party confessions.'],
     },
 
+    {
+      title: 'CHAOS',
+      emoji: '🎲',
+      color: 'from-pink-500 to-red-500',
+      description: 'Random party chaos.',
+      tasks: [
+        'Everyone switch seats.',
+        'Talk in accents for 2 minutes.',
+        'Dance battle NOW.',
+        'Take a dramatic selfie.',
+        'Freeze for 10 seconds.',
+      ],
+    },
 
-  {
-  title: 'SHOT ROULETTE',
-  emoji: '🥂',
-  color: 'from-orange-400 to-pink-600',
-  description: 'Random drinking challenges.',
-  tasks: [
-    'DOUBLE SHOTS 🍸🍸',
-    'EVERYONE DRINKS 🥂',
-    'SAFE CARD 🛡️',
-    'PICK A VICTIM 😈',
-    'WATER BREAK 💧',
-    'BRIDE CHOOSES 👰',
-    'SHOTGUN ROUND ⚠️',
-    'TAKE 3 SIPS 🍷',
-    'GIVE OUT 2 SHOTS 🎯',
-    'NO PHONE FOR 5 MIN 📵',
-    'DANCE BEFORE YOU DRINK 💃',
-    'LAST PERSON TO STAND DRINKS ⏳',
-    'TRUTH OR SHOT 🤐',
-    'SWITCH DRINKS 🔄',
-    'EVERYONE CHEERS 🍾',
-    'MYSTERY PUNISHMENT 🎲',
-    'MOST LIKELY TO GET MARRIED NEXT DRINKS 💍',
-    'FINISH YOUR DRINK 😭',
-    'CHOOSE A DRINKING PARTNER 👯',
-    'SHOT QUEEN ACTIVATED 👑',
-  ],
-}
+    {
+      title: 'AI SCAN',
+      emoji: '🤖',
+      color: 'from-purple-500 to-pink-500',
+      description: 'Scan party energy.',
+      tasks: [
+        '92% chaos detected.',
+        'Main character energy unlocked.',
+        'Dangerously overdressed.',
+        'Flirting level critical.',
+        'Certified party menace.',
+      ],
+    },
+
+    {
+      title: 'SHOT ROULETTE',
+      emoji: '🥂',
+      color: 'from-orange-400 to-pink-600',
+      description: 'Random drinking challenges.',
+      tasks: [
+        'DOUBLE SHOTS 🍸🍸',
+        'EVERYONE DRINKS 🥂',
+        'SAFE CARD 🛡️',
+        'PICK A VICTIM 😈',
+        'WATER BREAK 💧',
+        'BRIDE CHOOSES 👰',
+        'SHOTGUN ROUND ⚠️',
+        'TAKE 3 SIPS 🍷',
+        'GIVE OUT 2 SHOTS 🎯',
+        'NO PHONE FOR 5 MIN 📵',
+        'DANCE BEFORE YOU DRINK 💃',
+        'LAST PERSON TO STAND DRINKS ⏳',
+        'TRUTH OR SHOT 🤐',
+        'SWITCH DRINKS 🔄',
+        'EVERYONE CHEERS 🍾',
+        'MYSTERY PUNISHMENT 🎲',
+        'MOST LIKELY TO GET MARRIED NEXT DRINKS 💍',
+        'FINISH YOUR DRINK 😭',
+        'CHOOSE A DRINKING PARTNER 👯',
+        'SHOT QUEEN ACTIVATED 👑',
+      ],
+    },
   ]
-
 
   const openModule = (module: any) => {
     setSelectedModule(module)
@@ -106,6 +132,12 @@ export default function BrideExe() {
     setPhotos((prev) => [...newPhotos, ...prev])
   }
 
+  const deletePhoto = (indexToDelete: number) => {
+    setPhotos((prev) =>
+      prev.filter((_, index) => index !== indexToDelete)
+    )
+  }
+
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden relative">
       {/* Background */}
@@ -134,6 +166,10 @@ export default function BrideExe() {
           >
             INITIALIZE PARTY
           </button>
+
+          <p className="absolute bottom-6 text-zinc-500 text-sm">
+            Created by Ida Slunjski
+          </p>
         </div>
       ) : selectedModule ? (
         <div
@@ -179,13 +215,20 @@ export default function BrideExe() {
                 {photos.map((photo, index) => (
                   <div
                     key={index}
-                    className="rounded-[2rem] overflow-hidden border border-white/10 bg-black/20"
+                    className="relative rounded-[2rem] overflow-hidden border border-white/10 bg-black/20"
                   >
                     <img
                       src={photo}
                       alt="party"
                       className="w-full h-48 object-cover"
                     />
+
+                    <button
+                      onClick={() => deletePhoto(index)}
+                      className="absolute top-3 right-3 bg-black/70 rounded-full w-10 h-10 text-white font-black hover:bg-red-500 transition-all"
+                    >
+                      ✕
+                    </button>
                   </div>
                 ))}
               </div>
@@ -218,7 +261,7 @@ export default function BrideExe() {
                 </button>
               </div>
 
-              <div className="space-y-4 text-left">
+              <div className="space-y-4 text-left max-h-[400px] overflow-y-auto">
                 {messages.map((message, index) => (
                   <div
                     key={index}
@@ -263,6 +306,10 @@ export default function BrideExe() {
               </button>
             </div>
           )}
+
+          <p className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/60 text-sm">
+            Created by Ida Slunjski
+          </p>
         </div>
       ) : (
         <div className="relative z-10 min-h-screen p-6 sm:p-10">
@@ -303,6 +350,10 @@ export default function BrideExe() {
               </button>
             ))}
           </div>
+
+          <p className="text-center text-zinc-500 text-sm mt-10">
+            Created by Ida Slunjski
+          </p>
         </div>
       )}
     </div>
