@@ -29,15 +29,15 @@ export default function BrideExe() {
   const fileInputRef =
     React.useRef<HTMLInputElement | null>(null)
 
-React.useEffect(() => {
-  fetchPhotos()
-
-  const interval = setInterval(() => {
+  React.useEffect(() => {
     fetchPhotos()
-  }, 3000)
 
-  return () => clearInterval(interval)
-}, [])
+    const interval = setInterval(() => {
+      fetchPhotos()
+    }, 3000)
+
+    return () => clearInterval(interval)
+  }, [])
 
   const modules: Module[] = [
     {
@@ -153,13 +153,14 @@ React.useEffect(() => {
     for (const file of Array.from(files)) {
       const fileName = `${Date.now()}-${file.name}`
 
-      const { error } = await supabase.storage
-  .from('photos')
-  .upload(fileName, file)
+      const response = await supabase.storage
+        .from('photos')
+        .upload(fileName, file)
 
-console.log(error)
+      console.log('UPLOAD RESPONSE:')
+      console.log(response)
 
-      fetchPhotos()
+      await fetchPhotos()
     }
   }
 
@@ -262,56 +263,6 @@ console.log(error)
                     >
                       ✕
                     </button>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ) : selectedModule.title ===
-            'CONFESSIONS' ? (
-            <div className="max-w-4xl mx-auto text-center">
-              <div className="text-8xl mb-8">💌</div>
-
-              <h2 className="text-5xl sm:text-7xl font-black text-white mb-6">
-                CONFESSIONS
-              </h2>
-
-              <p className="text-white/80 text-xl mb-10">
-                Leave anonymous messages.
-              </p>
-
-              <div className="rounded-[2rem] bg-white/20 p-6 backdrop-blur-xl mb-8">
-                <textarea
-                  value={messageInput}
-                  onChange={(e) =>
-                    setMessageInput(
-                      e.target.value
-                    )
-                  }
-                  placeholder="Type anonymous message..."
-                  className="w-full h-32 rounded-2xl p-4 bg-white/40 border border-white/20 outline-none resize-none text-zinc-900"
-                />
-
-                <button
-                  onClick={addMessage}
-                  className="mt-4 rounded-3xl bg-white/30 px-8 py-4 text-white text-lg font-black backdrop-blur-xl hover:bg-white/40 transition-all"
-                >
-                  SEND MESSAGE
-                </button>
-              </div>
-
-              <div className="space-y-4 text-left max-h-[400px] overflow-y-auto">
-                {messages.map((message, index) => (
-                  <div
-                    key={index}
-                    className="rounded-[2rem] bg-white/20 p-6 border border-white/20 backdrop-blur-xl"
-                  >
-                    <div className="text-sm uppercase tracking-[0.3em] text-white/70 mb-3">
-                      Anonymous
-                    </div>
-
-                    <p className="text-white text-xl">
-                      {message}
-                    </p>
                   </div>
                 ))}
               </div>
