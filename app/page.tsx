@@ -59,9 +59,26 @@ export default function BrideExe() {
   }, [])
 
   React.useEffect(() => {
+    const savedModule =
+      localStorage.getItem(
+        'selectedModule'
+      )
+
+    if (savedModule) {
+      setSelectedModule(
+        JSON.parse(savedModule)
+      )
+    }
+  }, [])
+
+  React.useEffect(() => {
     const handlePopState = () => {
       setSelectedModule(null)
       setSelectedPhoto(null)
+
+      localStorage.removeItem(
+        'selectedModule'
+      )
     }
 
     window.addEventListener(
@@ -175,6 +192,11 @@ export default function BrideExe() {
     window.history.pushState({}, '')
 
     setSelectedModule(module)
+
+    localStorage.setItem(
+      'selectedModule',
+      JSON.stringify(module)
+    )
 
     const randomTask =
       module.tasks[
