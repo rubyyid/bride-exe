@@ -267,67 +267,76 @@ export default function BrideExe() {
               </div>
 
               {selectedPhoto && (
-  <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-6">
-    <div className="relative max-w-4xl w-full">
-      <button
-        onClick={() =>
-          setSelectedPhoto(null)
-        }
-        className="absolute -top-14 right-0 text-white text-4xl font-black"
-      >
-        ✕
-      </button>
+                <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-6">
+                  <div className="relative max-w-4xl w-full">
+                    <button
+                      onClick={() =>
+                        setSelectedPhoto(null)
+                      }
+                      className="absolute -top-14 right-0 text-white text-4xl font-black"
+                    >
+                      ✕
+                    </button>
 
-      <img
-        src={selectedPhoto.url}
-        alt="full"
-        className="w-full max-h-[80vh] object-contain rounded-[2rem]"
-      />
+                    <img
+                      src={selectedPhoto.url}
+                      alt="full"
+                      className="w-full max-h-[80vh] object-contain rounded-[2rem]"
+                    />
 
-      <div className="mt-6 flex gap-4">
-        <button
-          onClick={async () => {
-            const { error } =
-              await supabase.storage
-                .from('photos')
-                .remove([
-                  selectedPhoto.name,
-                ])
+                    <div className="mt-6 flex gap-4">
+                      <button
+                        onClick={async () => {
+                          const { error } =
+                            await supabase.storage
+                              .from('photos')
+                              .remove([
+                                selectedPhoto.name,
+                              ])
 
-            console.log(error)
+                          console.log(error)
 
-            setSelectedPhoto(null)
+                          setSelectedPhoto(null)
 
-            await fetchPhotos()
-          }}
-          className="flex-1 rounded-3xl bg-red-500 py-4 text-white text-xl font-black hover:bg-red-600 transition-all"
-        >
-          DELETE
-        </button>
+                          await fetchPhotos()
+                        }}
+                        className="flex-1 rounded-3xl bg-red-500 py-4 text-white text-xl font-black hover:bg-red-600 transition-all"
+                      >
+                        DELETE
+                      </button>
 
-        <button
-          onClick={async () => {
-            if (navigator.share) {
-              await navigator.share({
-                title: 'Bride.EXE',
-                url: selectedPhoto.url,
-              })
-            } else {
-              await navigator.clipboard.writeText(
-                selectedPhoto.url
-              )
+                      <a
+                        href={selectedPhoto.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 rounded-3xl bg-white/20 py-4 text-white text-xl font-black backdrop-blur-xl hover:bg-white/30 transition-all text-center flex items-center justify-center"
+                      >
+                        DOWNLOAD
+                      </a>
 
-              alert('Link copied 😄')
-            }
-          }}
-          className="flex-1 rounded-3xl bg-pink-500 py-4 text-white text-xl font-black hover:bg-pink-600 transition-all"
-        >
-          SHARE
-        </button>
-      </div>
-    </div>
-  </div>
-)}
+                      <button
+                        onClick={async () => {
+                          if (navigator.share) {
+                            await navigator.share({
+                              title: 'Bride.EXE',
+                              url: selectedPhoto.url,
+                            })
+                          } else {
+                            await navigator.clipboard.writeText(
+                              selectedPhoto.url
+                            )
+
+                            alert('Link copied 😄')
+                          }
+                        }}
+                        className="flex-1 rounded-3xl bg-pink-500 py-4 text-white text-xl font-black hover:bg-pink-600 transition-all"
+                      >
+                        SHARE
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           ) : selectedModule.title ===
             'CONFESSIONS' ? (
