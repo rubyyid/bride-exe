@@ -340,7 +340,7 @@ export default function BrideExe() {
             </div>
           ) : selectedModule.title ===
             'CONFESSIONS' ? (
-            <div className="max-w-4xl mx-auto text-center">
+            <div className="max-w-6xl mx-auto text-center">
               <div className="text-8xl mb-8">💌</div>
 
               <h2 className="text-5xl sm:text-7xl font-black text-white mb-6">
@@ -371,21 +371,53 @@ export default function BrideExe() {
                 </button>
               </div>
 
-              <div className="space-y-4 text-left max-h-[400px] overflow-y-auto">
-                {messages.map((message, index) => (
-                  <div
-                    key={index}
-                    className="rounded-[2rem] bg-white/20 p-6 border border-white/20 backdrop-blur-xl"
-                  >
-                    <div className="text-sm uppercase tracking-[0.3em] text-white/70 mb-3">
-                      Anonymous
-                    </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+                {messages.map((message, index) => {
+                  const colors = [
+                    'bg-yellow-200',
+                    'bg-pink-200',
+                    'bg-blue-200',
+                    'bg-green-200',
+                    'bg-orange-200',
+                    'bg-purple-200',
+                  ]
 
-                    <p className="text-white text-xl">
-                      {message}
-                    </p>
-                  </div>
-                ))}
+                  const rotations = [
+                    '-rotate-2',
+                    'rotate-1',
+                    'rotate-2',
+                    '-rotate-1',
+                  ]
+
+                  return (
+                    <div
+                      key={index}
+                      className={`
+                        ${colors[index % colors.length]}
+                        ${
+                          rotations[
+                            index %
+                              rotations.length
+                          ]
+                        }
+                        relative p-6 rounded-[2rem]
+                        shadow-2xl min-h-[220px]
+                        flex flex-col justify-between
+                        transition-all hover:scale-105
+                      `}
+                    >
+                      <div className="absolute top-4 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-white shadow-md" />
+
+                      <div className="text-xs uppercase tracking-[0.3em] text-zinc-600 mb-4 mt-4 font-bold">
+                        Anonymous
+                      </div>
+
+                      <p className="text-zinc-800 text-xl leading-relaxed font-semibold whitespace-pre-wrap">
+                        {message}
+                      </p>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           ) : (
