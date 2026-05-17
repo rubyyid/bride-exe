@@ -17,6 +17,9 @@ export default function BrideExe() {
   const [selectedModule, setSelectedModule] =
     React.useState<Module | null>(null)
 
+  const [selectedPhoto, setSelectedPhoto] =
+    React.useState<string | null>(null)
+
   const [task, setTask] = React.useState('')
 
   const [photos, setPhotos] = React.useState<string[]>([])
@@ -157,19 +160,29 @@ export default function BrideExe() {
         .from('photos')
         .upload(fileName, file)
 
-      console.log('UPLOAD RESPONSE:')
       console.log(response)
-
-      await fetchPhotos()
     }
+
+    await fetchPhotos()
   }
 
-  const deletePhoto = (indexToDelete: number) => {
-    setPhotos((prev) =>
-      prev.filter(
-        (_, index) => index !== indexToDelete
-      )
-    )
+  const deletePhoto = async (
+    photoUrl: string
+  ) => {
+    const fileName =
+      photoUrl.split('/').pop()
+
+    if (!fileName) return
+
+    const { error } = await supabase.storage
+      .from('photos')
+      .remove([fileName])
+
+    console.log(error)
+
+    setSelectedPhoto(null)
+
+    await fetchPhotos()
   }
 
   return (
@@ -228,7 +241,6 @@ export default function BrideExe() {
                 ref={fileInputRef}
                 type="file"
                 accept="image/*"
-                capture="environment"
                 multiple
                 onChange={handlePhotoUpload}
                 className="hidden"
@@ -245,24 +257,98 @@ export default function BrideExe() {
 
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                 {photos.map((photo, index) => (
-                  <div
+                  <button
                     key={index}
-                    className="relative rounded-[2rem] overflow-hidden border border-white/20 bg-white/20"
+                    onClick={() =>
+                      setSelectedPhoto(photo)
+                    }
+                    className="rounded-[2rem] overflow-hidden border border-white/20 bg-white/20"
                   >
                     <img
                       src={photo}
                       alt="party"
                       className="w-full h-48 object-cover"
                     />
+                  </button>
+                ))}
+              </div>
 
+              {selectedPhoto && (
+                <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-6">
+                  <div className="relative max-w-4xl w-full">
                     <button
                       onClick={() =>
-                        deletePhoto(index)
+                        setSelectedPhoto(null)
                       }
-                      className="absolute top-3 right-3 bg-white/80 rounded-full w-10 h-10 text-black font-black hover:bg-red-400 hover:text-white transition-all"
+                      className="absolute -top-14 right-0 text-white text-4xl font-black"
                     >
                       ✕
                     </button>
+
+                    <img
+                      src={selectedPhoto}
+                      alt="full"
+                      className="w-full max-h-[80vh] object-contain rounded-[2rem]"
+                    />
+
+                    <button
+                      onClick={() =>
+                        deletePhoto(selectedPhoto)
+                      }
+                      className="mt-6 w-full rounded-3xl bg-red-500 py-4 text-white text-xl font-black hover:bg-red-600 transition-all"
+                    >
+                      DELETE PHOTO
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : selectedModule.title ===
+            'CONFESSIONS' ? (
+            <div className="max-w-4xl mx-auto text-center">
+              <div className="text-8xl mb-8">💌</div>
+
+              <h2 className="text-5xl sm:text-7xl font-black text-white mb-6">
+                CONFESSIONS
+              </h2>
+
+              <p className="text-white/80 text-xl mb-10">
+                Leave anonymous messages.
+              </p>
+
+              <div className="rounded-[2rem] bg-white/20 p-6 backdrop-blur-xl mb-8">
+                <textarea
+                  value={messageInput}
+                  onChange={(e) =>
+                    setMessageInput(
+                      e.target.value
+                    )
+                  }
+                  placeholder="Type anonymous message..."
+                  className="w-full h-32 rounded-2xl p-4 bg-white/40 border border-white/20 outline-none resize-none text-zinc-900"
+                />
+
+                <button
+                  onClick={addMessage}
+                  className="mt-4 rounded-3xl bg-white/30 px-8 py-4 text-white text-lg font-black backdrop-blur-xl hover:bg-white/40 transition-all"
+                >
+                  SEND MESSAGE
+                </button>
+              </div>
+
+              <div className="space-y-4 text-left max-h-[400px] overflow-y-auto">
+                {messages.map((message, index) => (
+                  <div
+                    key={index}
+                    className="rounded-[2rem] bg-white/20 p-6 border border-white/20 backdrop-blur-xl"
+                  >
+                    <div className="text-sm uppercase tracking-[0.3em] text-white/70 mb-3">
+                      Anonymous
+                    </div>
+
+                    <p className="text-white text-xl">
+                      {message}
+                    </p>
                   </div>
                 ))}
               </div>
