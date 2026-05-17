@@ -81,24 +81,29 @@ export default function BrideExe() {
     {
       title: 'PHOTOBOOTH',
       emoji: '📸',
-      color: 'from-rose-400 to-pink-500',
-      description: 'Capture memories together.',
+      color:
+        'from-[#800020] to-[#E0A899]',
+      description:
+        'Capture memories together.',
       tasks: ['Take cute party photos.'],
     },
 
     {
       title: 'CONFESSIONS',
       emoji: '💌',
-      color: 'from-pink-400 to-rose-400',
-      description: 'Leave anonymous messages.',
+      color:
+        'from-[#E0A899] to-[#800020]',
+      description:
+        'Leave anonymous messages.',
       tasks: ['Share anonymous confessions.'],
     },
 
     {
       title: 'SHOT ROULETTE',
       emoji: '🥂',
-      color: 'from-red-400 to-pink-500',
-      description: 'Random drinking challenges.',
+      color: 'from-[#800020] to-black',
+      description:
+        'Random drinking challenges.',
       tasks: [
         'DOUBLE SHOTS 🍸🍸',
         'EVERYONE DRINKS 🥂',
@@ -233,16 +238,16 @@ export default function BrideExe() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rose-100 via-pink-50 to-red-100 relative overflow-hidden text-zinc-900">
-      <div className="absolute top-0 left-0 w-96 h-96 bg-rose-300/30 rounded-full blur-3xl" />
+    <div className="min-h-screen bg-[#FDFBF7] relative overflow-hidden text-[#1C1C1C]">
+      <div className="absolute top-0 left-0 w-96 h-96 bg-[#E0A899]/30 rounded-full blur-3xl" />
 
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-pink-300/30 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#800020]/20 rounded-full blur-3xl" />
 
       {!booted ? (
         <div className="min-h-screen flex flex-col items-center justify-center text-center px-6 relative z-10">
           <div className="text-8xl mb-8">💋</div>
 
-          <h1 className="text-6xl sm:text-7xl font-black bg-gradient-to-r from-rose-500 to-pink-500 text-transparent bg-clip-text mb-4">
+          <h1 className="text-6xl sm:text-7xl font-black bg-gradient-to-r from-[#800020] to-[#E0A899] text-transparent bg-clip-text mb-4">
             BRIDE.EXE
           </h1>
 
@@ -252,7 +257,7 @@ export default function BrideExe() {
 
           <button
             onClick={() => setBooted(true)}
-            className="rounded-3xl bg-gradient-to-r from-rose-400 to-pink-500 px-10 py-5 text-white text-2xl font-black shadow-2xl hover:scale-105 transition-all"
+            className="rounded-3xl bg-gradient-to-r from-[#800020] to-[#E0A899] px-10 py-5 text-white text-2xl font-black shadow-2xl hover:scale-105 transition-all"
           >
             INITIALIZE PARTY
           </button>
@@ -408,12 +413,12 @@ export default function BrideExe() {
                     )
                   }
                   placeholder="Type anonymous message..."
-                  className="w-full min-h-[60px] max-h-[300px] rounded-2xl p-4 bg-white/40 border border-white/20 outline-none resize-none text-zinc-900"
+                  className="w-full min-h-[60px] max-h-[300px] rounded-2xl p-4 bg-white/40 border border-white/20 outline-none resize-none text-[#1C1C1C]"
                 />
 
                 <button
                   onClick={addMessage}
-                  className="mt-4 rounded-3xl bg-white/30 px-8 py-4 text-white text-lg font-black backdrop-blur-xl hover:bg-white/40 transition-all"
+                  className="mt-4 rounded-3xl bg-gradient-to-r from-[#800020] to-[#E0A899] px-8 py-4 text-white text-lg font-black hover:scale-105 transition-all"
                 >
                   SEND MESSAGE
                 </button>
@@ -422,12 +427,12 @@ export default function BrideExe() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
                 {messages.map((message, index) => {
                   const colors = [
-                    'bg-yellow-200',
-                    'bg-pink-200',
-                    'bg-blue-200',
-                    'bg-green-200',
-                    'bg-orange-200',
-                    'bg-purple-200',
+                    'bg-[#E0A899]',
+                    'bg-[#FDFBF7]',
+                    'bg-[#f4d7cf]',
+                    'bg-[#ecd0c8]',
+                    'bg-[#f8ebe7]',
+                    'bg-[#d9b3a7]',
                   ]
 
                   const rotations = [
@@ -457,8 +462,8 @@ export default function BrideExe() {
                       `}
                     >
                       <div className="absolute top-4 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-white shadow-md" />
-                      
-                      <p className="text-zinc-800 text-xl leading-relaxed font-semibold whitespace-pre-wrap">
+
+                      <p className="text-[#1C1C1C] text-xl leading-relaxed font-semibold whitespace-pre-wrap mt-4">
                         {message.text}
                       </p>
                     </div>
@@ -502,7 +507,7 @@ export default function BrideExe() {
       ) : (
         <div className="min-h-screen p-6 sm:p-10 relative z-10">
           <div className="text-center mb-10">
-            <h1 className="text-5xl sm:text-6xl font-black bg-gradient-to-r from-rose-500 to-pink-500 text-transparent bg-clip-text mb-4">
+            <h1 className="text-5xl sm:text-6xl font-black bg-gradient-to-r from-[#800020] to-[#E0A899] text-transparent bg-clip-text mb-4">
               PARTY CONTROL PANEL
             </h1>
 
