@@ -16,6 +16,11 @@ type Photo = {
   name: string
 }
 
+type Message = {
+  id: number
+  text: string
+}
+
 export default function BrideExe() {
   const [booted, setBooted] = React.useState(false)
 
@@ -32,7 +37,7 @@ export default function BrideExe() {
   >([])
 
   const [messages, setMessages] = React.useState<
-    string[]
+    Message[]
   >([])
 
   const [messageInput, setMessageInput] =
@@ -43,9 +48,11 @@ export default function BrideExe() {
 
   React.useEffect(() => {
     fetchPhotos()
+    fetchMessages()
 
     const interval = setInterval(() => {
       fetchPhotos()
+      fetchMessages()
     }, 3000)
 
     return () => clearInterval(interval)
@@ -126,6 +133,22 @@ export default function BrideExe() {
     setPhotos(photoUrls)
   }
 
+  const fetchMessages = async () => {
+    const { data, error } = await supabase
+      .from('messages')
+      .select('*')
+      .order('id', {
+        ascending: false,
+      })
+
+    if (error || !data) {
+      console.log(error)
+      return
+    }
+
+    setMessages(data)
+  }
+
   const openModule = (module: Module) => {
     setSelectedModule(module)
 
@@ -150,12 +173,22 @@ export default function BrideExe() {
     setTask(randomTask)
   }
 
-  const addMessage = () => {
+  const addMessage = async () => {
     if (!messageInput.trim()) return
 
-    setMessages((prev) => [messageInput, ...prev])
+    const { error } = await supabase
+      .from('messages')
+      .insert([
+        {
+          text: messageInput,
+        },
+      ])
+
+    console.log(error)
 
     setMessageInput('')
+
+    await fetchMessages()
   }
 
   const handlePhotoUpload = async (
@@ -354,13 +387,14 @@ export default function BrideExe() {
               <div className="rounded-[2rem] bg-white/20 p-6 backdrop-blur-xl mb-8">
                 <textarea
                   value={messageInput}
+                  rows={1}
                   onChange={(e) =>
                     setMessageInput(
                       e.target.value
                     )
                   }
                   placeholder="Type anonymous message..."
-                  className="w-full h-32 rounded-2xl p-4 bg-white/40 border border-white/20 outline-none resize-none text-zinc-900"
+                  className="w-full min-h-[60px] max-h-[300px] rounded-2xl p-4 bg-white/40 border border-white/20 outline-none resize-none text-zinc-900"
                 />
 
                 <button
@@ -391,7 +425,7 @@ export default function BrideExe() {
 
                   return (
                     <div
-                      key={index}
+                      key={message.id}
                       className={`
                         ${colors[index % colors.length]}
                         ${
@@ -413,7 +447,7 @@ export default function BrideExe() {
                       </div>
 
                       <p className="text-zinc-800 text-xl leading-relaxed font-semibold whitespace-pre-wrap">
-                        {message}
+                        {message.text}
                       </p>
                     </div>
                   )
