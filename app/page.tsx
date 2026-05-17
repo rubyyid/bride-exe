@@ -457,11 +457,7 @@ export default function BrideExe() {
                       `}
                     >
                       <div className="absolute top-4 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-white shadow-md" />
-
-                      <div className="text-xs uppercase tracking-[0.3em] text-zinc-600 mb-4 mt-4 font-bold">
-                        Anonymous
-                      </div>
-
+                      
                       <p className="text-zinc-800 text-xl leading-relaxed font-semibold whitespace-pre-wrap">
                         {message.text}
                       </p>
