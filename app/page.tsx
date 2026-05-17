@@ -58,6 +58,25 @@ export default function BrideExe() {
     return () => clearInterval(interval)
   }, [])
 
+  React.useEffect(() => {
+    const handlePopState = () => {
+      setSelectedModule(null)
+      setSelectedPhoto(null)
+    }
+
+    window.addEventListener(
+      'popstate',
+      handlePopState
+    )
+
+    return () => {
+      window.removeEventListener(
+        'popstate',
+        handlePopState
+      )
+    }
+  }, [])
+
   const modules: Module[] = [
     {
       title: 'PHOTOBOOTH',
@@ -150,6 +169,8 @@ export default function BrideExe() {
   }
 
   const openModule = (module: Module) => {
+    window.history.pushState({}, '')
+
     setSelectedModule(module)
 
     const randomTask =
@@ -244,13 +265,6 @@ export default function BrideExe() {
         <div
           className={`min-h-screen flex flex-col justify-center p-6 sm:p-10 bg-gradient-to-br ${selectedModule.color} relative`}
         >
-          <button
-            onClick={() => setSelectedModule(null)}
-            className="absolute top-6 left-6 rounded-2xl bg-white/40 px-5 py-3 backdrop-blur-xl font-bold hover:bg-white/60 transition-all"
-          >
-            ← BACK
-          </button>
-
           {selectedModule.title === 'PHOTOBOOTH' ? (
             <div className="max-w-6xl mx-auto text-center">
               <div className="text-8xl mb-8">📸</div>
@@ -435,7 +449,9 @@ export default function BrideExe() {
                           ]
                         }
                         relative p-6 rounded-[2rem]
-                        shadow-2xl min-h-[220px]
+                        shadow-2xl
+                        min-h-fit
+                        h-fit
                         flex flex-col justify-between
                         transition-all hover:scale-105
                       `}
