@@ -11,6 +11,11 @@ type Module = {
   tasks: string[]
 }
 
+type Photo = {
+  url: string
+  name: string
+}
+
 export default function BrideExe() {
   const [booted, setBooted] = React.useState(false)
 
@@ -18,13 +23,17 @@ export default function BrideExe() {
     React.useState<Module | null>(null)
 
   const [selectedPhoto, setSelectedPhoto] =
-    React.useState<string | null>(null)
+    React.useState<Photo | null>(null)
 
   const [task, setTask] = React.useState('')
 
-  const [photos, setPhotos] = React.useState<string[]>([])
+  const [photos, setPhotos] = React.useState<
+    Photo[]
+  >([])
 
-  const [messages, setMessages] = React.useState<string[]>([])
+  const [messages, setMessages] = React.useState<
+    string[]
+  >([])
 
   const [messageInput, setMessageInput] =
     React.useState('')
@@ -108,7 +117,10 @@ export default function BrideExe() {
         .from('photos')
         .getPublicUrl(file.name)
 
-      return publicUrl
+      return {
+        url: publicUrl,
+        name: file.name,
+      }
     })
 
     setPhotos(photoUrls)
@@ -162,25 +174,6 @@ export default function BrideExe() {
 
       console.log(response)
     }
-
-    await fetchPhotos()
-  }
-
-  const deletePhoto = async (
-    photoUrl: string
-  ) => {
-    const fileName =
-      photoUrl.split('/').pop()
-
-    if (!fileName) return
-
-    const { error } = await supabase.storage
-      .from('photos')
-      .remove([fileName])
-
-    console.log(error)
-
-    setSelectedPhoto(null)
 
     await fetchPhotos()
   }
@@ -256,20 +249,20 @@ export default function BrideExe() {
               </button>
 
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                {photos.map((photo, index) => (
-                  <button
+                {photos.map((photoData, index) => (
+                  <div
                     key={index}
                     onClick={() =>
-                      setSelectedPhoto(photo)
+                      setSelectedPhoto(photoData)
                     }
-                    className="rounded-[2rem] overflow-hidden border border-white/20 bg-white/20"
+                    className="rounded-[2rem] overflow-hidden border border-white/20 bg-white/20 cursor-pointer"
                   >
                     <img
-                      src={photo}
+                      src={photoData.url}
                       alt="party"
                       className="w-full h-48 object-cover"
                     />
-                  </button>
+                  </div>
                 ))}
               </div>
 
@@ -286,19 +279,32 @@ export default function BrideExe() {
                     </button>
 
                     <img
-                      src={selectedPhoto}
+                      src={selectedPhoto.url}
                       alt="full"
                       className="w-full max-h-[80vh] object-contain rounded-[2rem]"
                     />
 
-                    <button
-                      onClick={() =>
-                        deletePhoto(selectedPhoto)
-                      }
-                      className="mt-6 w-full rounded-3xl bg-red-500 py-4 text-white text-xl font-black hover:bg-red-600 transition-all"
-                    >
-                      DELETE PHOTO
-                    </button>
+                    <div className="mt-6 flex gap-4">
+                      <a
+                        href={selectedPhoto.url}
+                        download
+                        className="flex-1 rounded-3xl bg-white/20 py-4 text-white text-xl font-black backdrop-blur-xl hover:bg-white/30 transition-all"
+                      >
+                        DOWNLOAD
+                      </a>
+
+                      <button
+                        onClick={() => {
+                          navigator.share?.({
+                            title: 'Bride.EXE',
+                            url: selectedPhoto.url,
+                          })
+                        }}
+                        className="flex-1 rounded-3xl bg-pink-500 py-4 text-white text-xl font-black hover:bg-pink-600 transition-all"
+                      >
+                        SHARE
+                      </button>
+                    </div>
                   </div>
                 </div>
               )}
