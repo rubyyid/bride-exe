@@ -81,8 +81,7 @@ export default function BrideExe() {
     {
       title: 'PHOTOBOOTH',
       emoji: '📸',
-      color:
-        'from-[#800020] to-[#E0A899]',
+      color: 'bg-[#FDFBF7]',
       description:
         'Capture memories together.',
       tasks: ['Take cute party photos.'],
@@ -91,8 +90,7 @@ export default function BrideExe() {
     {
       title: 'CONFESSIONS',
       emoji: '💌',
-      color:
-        'from-[#E0A899] to-[#800020]',
+      color: 'bg-[#FDFBF7]',
       description:
         'Leave anonymous messages.',
       tasks: ['Share anonymous confessions.'],
@@ -101,7 +99,7 @@ export default function BrideExe() {
     {
       title: 'SHOT ROULETTE',
       emoji: '🥂',
-      color: 'from-[#800020] to-black',
+      color: 'bg-[#FDFBF7]',
       description:
         'Random drinking challenges.',
       tasks: [
@@ -192,7 +190,8 @@ export default function BrideExe() {
     const randomTask =
       selectedModule.tasks[
         Math.floor(
-          Math.random() * selectedModule.tasks.length
+          Math.random() *
+            selectedModule.tasks.length
         )
       ]
 
@@ -238,16 +237,12 @@ export default function BrideExe() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FDFBF7] relative overflow-hidden text-[#1C1C1C]">
-      <div className="absolute top-0 left-0 w-96 h-96 bg-[#E0A899]/30 rounded-full blur-3xl" />
-
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#800020]/20 rounded-full blur-3xl" />
-
+    <div className="min-h-screen bg-[#FDFBF7] text-[#1C1C1C]">
       {!booted ? (
-        <div className="min-h-screen flex flex-col items-center justify-center text-center px-6 relative z-10">
+        <div className="min-h-screen flex flex-col items-center justify-center text-center px-6">
           <div className="text-8xl mb-8">💋</div>
 
-          <h1 className="text-6xl sm:text-7xl font-black bg-gradient-to-r from-[#800020] to-[#E0A899] text-transparent bg-clip-text mb-4">
+          <h1 className="text-6xl sm:text-7xl font-black mb-4 tracking-wide">
             BRIDE.EXE
           </h1>
 
@@ -257,9 +252,9 @@ export default function BrideExe() {
 
           <button
             onClick={() => setBooted(true)}
-            className="rounded-3xl bg-gradient-to-r from-[#800020] to-[#E0A899] px-10 py-5 text-white text-2xl font-black shadow-2xl hover:scale-105 transition-all"
+            className="rounded-full bg-[#800020] px-10 py-5 text-white text-xl font-semibold hover:opacity-90 transition-all"
           >
-            INITIALIZE PARTY
+            ENTER
           </button>
 
           <p className="absolute bottom-6 text-zinc-500 text-sm">
@@ -267,18 +262,16 @@ export default function BrideExe() {
           </p>
         </div>
       ) : selectedModule ? (
-        <div
-          className={`min-h-screen flex flex-col justify-center p-6 sm:p-10 bg-gradient-to-br ${selectedModule.color} relative`}
-        >
+        <div className="min-h-screen p-6 sm:p-10">
           {selectedModule.title === 'PHOTOBOOTH' ? (
             <div className="max-w-6xl mx-auto text-center">
-              <div className="text-8xl mb-8">📸</div>
+              <div className="text-7xl mb-8">📸</div>
 
-              <h2 className="text-5xl sm:text-7xl font-black text-white mb-6">
+              <h2 className="text-5xl sm:text-6xl font-black mb-4">
                 PHOTOBOOTH
               </h2>
 
-              <p className="text-white/80 text-xl mb-10">
+              <p className="text-zinc-500 text-lg mb-10">
                 Capture memories from the party.
               </p>
 
@@ -295,7 +288,7 @@ export default function BrideExe() {
                 onClick={() =>
                   fileInputRef.current?.click()
                 }
-                className="rounded-3xl bg-white/30 px-8 py-5 text-white text-xl font-black backdrop-blur-xl hover:bg-white/40 transition-all mb-10"
+                className="rounded-full bg-[#800020] px-8 py-4 text-white text-lg font-semibold hover:opacity-90 transition-all mb-10"
               >
                 OPEN CAMERA
               </button>
@@ -307,7 +300,7 @@ export default function BrideExe() {
                     onClick={() =>
                       setSelectedPhoto(photoData)
                     }
-                    className="rounded-[2rem] overflow-hidden border border-white/20 bg-white/20 cursor-pointer"
+                    className="rounded-[2rem] overflow-hidden border border-[#800020]/10 cursor-pointer bg-white"
                   >
                     <img
                       src={photoData.url}
@@ -352,7 +345,7 @@ export default function BrideExe() {
 
                           await fetchPhotos()
                         }}
-                        className="flex-1 rounded-3xl bg-red-500 py-4 text-white text-xl font-black hover:bg-red-600 transition-all"
+                        className="flex-1 rounded-full bg-[#800020] py-4 text-white text-lg font-semibold hover:opacity-90 transition-all"
                       >
                         DELETE
                       </button>
@@ -361,7 +354,7 @@ export default function BrideExe() {
                         href={selectedPhoto.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-1 rounded-3xl bg-white/20 py-4 text-white text-xl font-black backdrop-blur-xl hover:bg-white/30 transition-all text-center flex items-center justify-center"
+                        className="flex-1 rounded-full border border-[#800020] py-4 text-[#1C1C1C] text-lg font-semibold text-center flex items-center justify-center hover:bg-[#800020]/5 transition-all"
                       >
                         DOWNLOAD
                       </a>
@@ -381,7 +374,7 @@ export default function BrideExe() {
                             alert('Link copied 😄')
                           }
                         }}
-                        className="flex-1 rounded-3xl bg-pink-500 py-4 text-white text-xl font-black hover:bg-pink-600 transition-all"
+                        className="flex-1 rounded-full border border-[#800020] py-4 text-[#1C1C1C] text-lg font-semibold hover:bg-[#800020]/5 transition-all"
                       >
                         SHARE
                       </button>
@@ -393,17 +386,17 @@ export default function BrideExe() {
           ) : selectedModule.title ===
             'CONFESSIONS' ? (
             <div className="max-w-6xl mx-auto text-center">
-              <div className="text-8xl mb-8">💌</div>
+              <div className="text-7xl mb-8">💌</div>
 
-              <h2 className="text-5xl sm:text-7xl font-black text-white mb-6">
+              <h2 className="text-5xl sm:text-6xl font-black mb-4">
                 CONFESSIONS
               </h2>
 
-              <p className="text-white/80 text-xl mb-10">
+              <p className="text-zinc-500 text-lg mb-10">
                 Leave anonymous messages.
               </p>
 
-              <div className="rounded-[2rem] bg-white/20 p-6 backdrop-blur-xl mb-8">
+              <div className="bg-white p-6 rounded-[2rem] border border-[#800020]/10 mb-10">
                 <textarea
                   value={messageInput}
                   rows={1}
@@ -413,106 +406,72 @@ export default function BrideExe() {
                     )
                   }
                   placeholder="Type anonymous message..."
-                  className="w-full min-h-[60px] max-h-[300px] rounded-2xl p-4 bg-white/40 border border-white/20 outline-none resize-none text-[#1C1C1C]"
+                  className="w-full min-h-[60px] max-h-[300px] rounded-2xl p-4 border border-[#800020]/10 outline-none resize-none text-[#1C1C1C]"
                 />
 
                 <button
                   onClick={addMessage}
-                  className="mt-4 rounded-3xl bg-gradient-to-r from-[#800020] to-[#E0A899] px-8 py-4 text-white text-lg font-black hover:scale-105 transition-all"
+                  className="mt-4 rounded-full bg-[#800020] px-8 py-4 text-white text-lg font-semibold hover:opacity-90 transition-all"
                 >
                   SEND MESSAGE
                 </button>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
-                {messages.map((message, index) => {
-                  const colors = [
-                    'bg-[#E0A899]',
-                    'bg-[#FDFBF7]',
-                    'bg-[#f4d7cf]',
-                    'bg-[#ecd0c8]',
-                    'bg-[#f8ebe7]',
-                    'bg-[#d9b3a7]',
-                  ]
-
-                  const rotations = [
-                    '-rotate-2',
-                    'rotate-1',
-                    'rotate-2',
-                    '-rotate-1',
-                  ]
-
-                  return (
-                    <div
-                      key={message.id}
-                      className={`
-                        ${colors[index % colors.length]}
-                        ${
-                          rotations[
-                            index %
-                              rotations.length
-                          ]
-                        }
-                        relative p-6 rounded-[2rem]
-                        shadow-2xl
-                        min-h-fit
-                        h-fit
-                        flex flex-col justify-between
-                        transition-all hover:scale-105
-                      `}
-                    >
-                      <div className="absolute top-4 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-white shadow-md" />
-
-                      <p className="text-[#1C1C1C] text-xl leading-relaxed font-semibold whitespace-pre-wrap mt-4">
-                        {message.text}
-                      </p>
-                    </div>
-                  )
-                })}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {messages.map((message) => (
+                  <div
+                    key={message.id}
+                    className="bg-white border border-[#800020]/10 rounded-[2rem] p-6 shadow-sm h-fit"
+                  >
+                    <p className="text-[#1C1C1C] text-xl leading-relaxed whitespace-pre-wrap">
+                      {message.text}
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
           ) : (
-            <div className="text-center">
-              <div className="text-8xl mb-8">
+            <div className="text-center max-w-4xl mx-auto">
+              <div className="text-7xl mb-8">
                 {selectedModule.emoji}
               </div>
 
-              <h2 className="text-5xl sm:text-7xl font-black text-white mb-6">
+              <h2 className="text-5xl sm:text-6xl font-black mb-8">
                 {selectedModule.title}
               </h2>
 
-              <div className="rounded-[2rem] bg-white/20 backdrop-blur-xl p-8 max-w-3xl mx-auto border border-white/20 mb-8">
-                <p className="uppercase tracking-[0.3em] text-white/70 text-sm mb-6">
+              <div className="bg-white border border-[#800020]/10 rounded-[2rem] p-10 mb-10">
+                <p className="uppercase tracking-[0.3em] text-zinc-400 text-sm mb-6">
                   YOUR CHALLENGE
                 </p>
 
-                <p className="text-3xl sm:text-5xl text-white font-black leading-tight">
+                <p className="text-3xl sm:text-5xl leading-tight">
                   {task}
                 </p>
               </div>
 
               <button
                 onClick={generateTask}
-                className="rounded-3xl bg-white/30 px-8 py-5 text-white text-xl font-black backdrop-blur-xl hover:bg-white/40 transition-all"
+                className="rounded-full bg-[#800020] px-8 py-5 text-white text-lg font-semibold hover:opacity-90 transition-all"
               >
                 NEW CHALLENGE
               </button>
             </div>
           )}
 
-          <p className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/70 text-sm">
+          <p className="text-center text-zinc-400 text-sm mt-16">
             Created by Ida Slunjski
           </p>
         </div>
       ) : (
-        <div className="min-h-screen p-6 sm:p-10 relative z-10">
-          <div className="text-center mb-10">
-            <h1 className="text-5xl sm:text-6xl font-black bg-gradient-to-r from-[#800020] to-[#E0A899] text-transparent bg-clip-text mb-4">
-              PARTY CONTROL PANEL
+        <div className="min-h-screen p-6 sm:p-10">
+          <div className="text-center mb-16">
+            <h1 className="text-5xl sm:text-6xl font-black mb-4 tracking-wide">
+              BRIDE.EXE
             </h1>
 
             <p className="text-zinc-500">
-              Select a game module
+              Select a module
             </p>
           </div>
 
@@ -521,30 +480,30 @@ export default function BrideExe() {
               <button
                 key={index}
                 onClick={() => openModule(module)}
-                className={`rounded-[2rem] bg-gradient-to-br ${module.color} p-8 min-h-[260px] flex flex-col justify-between text-left shadow-2xl hover:scale-[1.03] transition-all`}
+                className="rounded-[2rem] bg-white border border-[#800020]/10 p-8 min-h-[260px] flex flex-col justify-between text-left hover:border-[#800020]/30 transition-all"
               >
                 <div>
-                  <div className="text-6xl mb-6">
+                  <div className="text-5xl mb-6">
                     {module.emoji}
                   </div>
 
-                  <h2 className="text-3xl font-black text-white mb-3">
+                  <h2 className="text-3xl font-black mb-3">
                     {module.title}
                   </h2>
 
-                  <p className="text-white/80 text-lg">
+                  <p className="text-zinc-500 text-lg">
                     {module.description}
                   </p>
                 </div>
 
-                <div className="mt-8 uppercase tracking-[0.3em] text-sm text-white/70">
-                  TAP TO OPEN
+                <div className="mt-8 uppercase tracking-[0.3em] text-sm text-zinc-400">
+                  OPEN
                 </div>
               </button>
             ))}
           </div>
 
-          <p className="text-center text-zinc-500 text-sm mt-10">
+          <p className="text-center text-zinc-400 text-sm mt-16">
             Created by Ida Slunjski
           </p>
         </div>
