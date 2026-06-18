@@ -31,16 +31,4 @@ export default function RootLayout({
     </html>
   );
 }
-@import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap');
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(25px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
