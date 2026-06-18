@@ -150,8 +150,7 @@ export default function Home() {
             marginBottom: '25px',
           }}
         >
-          Upload and share memories from
-          Martinina djevojačka
+         Share your memories
         </p>
 
         <input
@@ -308,6 +307,18 @@ export default function Home() {
           </div>
         </div>
       )}
+      <div
+  style={{
+    textAlign: 'center',
+    marginTop: '40px',
+    paddingBottom: '20px',
+    color: '#888',
+    fontSize: '12px',
+    fontFamily: 'Times New Roman, serif',
+  }}
+>
+  Created by Ida Slunjski
+</div>
     </div>
   )
 }
