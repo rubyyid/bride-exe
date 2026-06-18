@@ -317,13 +317,27 @@ export default function BrideExe() {
           fontFamily: "'Parisienne', cursive",
         }}
       >
-        <p className="text-2xl">
-          Created by Ida Slunjski
-        </p>
+ <div
+  className="
+    absolute
+    bottom-6
+    left-1/2
+    -translate-x-1/2
+    text-center
+    text-gray-400
+  "
+  style={{
+    fontFamily: 'Times New Roman, serif',
+  }}
+>
+  <p className="text-xs">
+    Created by Ida Slunjski
+  </p>
 
-        <p className="text-sm mt-1">
-          June 2026
-        </p>
+  <p className="text-xs">
+    June 2026
+  </p>
+</div>
       </div>
     </div>
   </div>

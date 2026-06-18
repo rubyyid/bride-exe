@@ -27,7 +27,7 @@ body {
 @import url('https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&display=swap');
 
 .tangerine-title {
-  font-family: 'Tangerine', cursive;
+  font-family: 'Tangerine', sans-serif;
   font-weight: 700;
 
   color: #BD1947;
