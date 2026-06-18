@@ -260,29 +260,74 @@ export default function BrideExe() {
 
   return (
     <div className="min-h-screen bg-[#FDFBF7] text-[#1C1C1C]">
-      {!booted ? (
-        <div className="min-h-screen flex flex-col items-center justify-center text-center px-6">
-          <div className="text-8xl mb-8">💋</div>
+ {!booted ? (
+  <div className="min-h-screen bg-[#FDFBF7] relative overflow-hidden flex items-center justify-center">
 
-          <h1 className="text-6xl sm:text-7xl font-black mb-4 tracking-wide">
-            BRIDE.EXE
-          </h1>
+    <div className="absolute inset-0 opacity-40">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,#EFDDE4_0%,#FDFBF7_70%)]" />
+    </div>
 
-          <p className="uppercase tracking-[0.4em] text-zinc-500 text-sm mb-10">
-            SYSTEM READY
-          </p>
+    <div className="relative z-10 flex flex-col items-center">
 
-          <button
-            onClick={() => setBooted(true)}
-            className="rounded-full bg-[#800020] px-10 py-5 text-white text-xl font-semibold hover:opacity-90 transition-all"
-          >
-            ENTER
-          </button>
+      <div className="animate-[fadeIn_1.2s_ease-out_forwards]">
+        <h1
+          className="
+            text-[#800020]
+            text-center
+            leading-none
+            font-light
+          "
+          style={{
+            fontFamily: "'Parisienne', cursive",
+            fontSize: 'clamp(3rem,10vw,7rem)',
+          }}
+        >
+          Kiss The
+          <br />
+          Miss Goodbye
+        </h1>
+      </div>
 
-          <p className="absolute bottom-6 text-zinc-500 text-sm">
-            Created by Ida Slunjski
-          </p>
-        </div>
+      <button
+        onClick={() => setBooted(true)}
+        className="
+          mt-10
+          border-2
+          border-[#800020]
+          text-[#800020]
+          px-10
+          py-3
+          hover:bg-[#800020]
+          hover:text-white
+          transition-all
+          tracking-[0.3em]
+        "
+      >
+        OPEN
+      </button>
+
+      <div
+        className="
+          absolute
+          -bottom-32
+          text-center
+          text-[#800020]
+        "
+        style={{
+          fontFamily: "'Parisienne', cursive",
+        }}
+      >
+        <p className="text-2xl">
+          Created by Ida Slunjski
+        </p>
+
+        <p className="text-sm mt-1">
+          June 2026
+        </p>
+      </div>
+    </div>
+  </div>
+
       ) : selectedModule ? (
         <div className="min-h-screen p-6 sm:p-10">
           {selectedModule.title === 'PHOTOBOOTH' ? (
@@ -415,7 +460,7 @@ export default function BrideExe() {
               </h2>
 
               <p className="text-zinc-500 text-lg mb-10">
-                Leave anonymous messages.
+                ostavi neku poruku.
               </p>
 
               <div className="bg-white p-6 rounded-[2rem] border border-[#800020]/10 mb-10">
