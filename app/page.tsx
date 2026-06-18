@@ -272,10 +272,11 @@ export default function BrideExe() {
       <div className="animate-[fadeIn_1.2s_ease-out_forwards]">
   <h1
     className="
-      sofia-title
-      splash-animation
+      tangerine-title
+      title-animation
+      text-[#800020]
       text-center
-      leading-none
+      leading-tight
     "
     style={{
       fontSize: 'clamp(3rem,10vw,7rem)',
