@@ -105,7 +105,7 @@ export default function Home() {
             marginBottom: '30px',
           }}
         >
-          Scan • Upload • Share Memories
+          Upload and share memories from Martinina djevojačka
         </p>
 
         <input
