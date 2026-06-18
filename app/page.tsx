@@ -270,23 +270,22 @@ export default function BrideExe() {
     <div className="relative z-10 flex flex-col items-center">
 
       <div className="animate-[fadeIn_1.2s_ease-out_forwards]">
-        <h1
-          className="
-            text-[#800020]
-            text-center
-            leading-none
-            font-light
-          "
-          style={{
-            fontFamily: "'Parisienne', cursive",
-            fontSize: 'clamp(3rem,10vw,7rem)',
-          }}
-        >
-          Kiss The
-          <br />
-          Miss Goodbye
-        </h1>
-      </div>
+  <h1
+    className="
+      sofia-title
+      splash-animation
+      text-center
+      leading-none
+    "
+    style={{
+      fontSize: 'clamp(3rem,10vw,7rem)',
+    }}
+  >
+    Kiss The
+    <br />
+    Miss Goodbye
+  </h1>
+</div>
 
       <button
         onClick={() => setBooted(true)}

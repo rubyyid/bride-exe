@@ -25,7 +25,16 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sofia&display=swap');
+
+.sofia-title {
+  font-family: "Sofia", cursive;
+  color: #BD1947;
+
+  text-shadow:
+    0 0 10px rgba(189, 25, 71, 0.15),
+    0 0 20px rgba(189, 25, 71, 0.10);
+}
 
 @keyframes fadeIn {
   from {
@@ -37,4 +46,8 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.splash-animation {
+  animation: fadeIn 1.5s ease-out forwards;
 }
