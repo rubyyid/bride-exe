@@ -4,10 +4,39 @@ html,
 body {
   margin: 0;
   padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #F6E8EE;
 }
 
 .tangerine-title {
   font-family: 'Tangerine', cursive;
   font-weight: 700;
-  color: #BD1947;
+
+  text-shadow:
+    0 0 8px rgba(189, 25, 71, 0.15),
+    0 0 16px rgba(189, 25, 71, 0.12),
+    0 0 30px rgba(189, 25, 71, 0.08);
+
+  animation: fadeInTitle 1.8s ease forwards;
+}
+
+@keyframes fadeInTitle {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
