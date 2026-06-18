@@ -4,19 +4,20 @@ export default function Home() {
   return (
     <div
       style={{
-        background: "#F6E8EE",
-        minHeight: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
+        background: '#F6E8EE',
+        minHeight: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
       }}
     >
       <h1
-        className="sofia-title"
+        className="tangerine-title"
         style={{
-          fontSize: "120px",
-          color: "#BD1947",
+          fontSize: '180px',
+          lineHeight: '0.8',
+          textAlign: 'center',
         }}
       >
         Kiss The
@@ -26,28 +27,15 @@ export default function Home() {
 
       <button
         style={{
-          marginTop: "20px",
-          padding: "12px 40px",
-          border: "2px solid #BD1947",
-          background: "transparent",
-          color: "#BD1947",
+          border: '2px solid #BD1947',
+          background: 'transparent',
+          color: '#BD1947',
+          padding: '12px 40px',
+          borderRadius: '8px',
         }}
       >
         OPEN
       </button>
-
-      <div
-        style={{
-          position: "fixed",
-          bottom: "20px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          color: "gray",
-          fontSize: "12px",
-        }}
-      >
-        <div>Created by Ida Slunjski</div>
-      </div>
     </div>
   )
 }
