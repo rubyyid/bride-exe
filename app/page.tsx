@@ -13,6 +13,7 @@ export default function Home() {
       }}
     >
       <h1
+        className="sofia-title"
         style={{
           fontSize: "120px",
           color: "#BD1947",
@@ -46,7 +47,6 @@ export default function Home() {
         }}
       >
         <div>Created by Ida Slunjski</div>
-        <div>June 2026</div>
       </div>
     </div>
   )
