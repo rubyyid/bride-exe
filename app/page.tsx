@@ -2,27 +2,52 @@
 
 export default function Home() {
   return (
-    <div className="landing-page">
+    <div
+      style={{
+        background: "#F6E8EE",
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+      }}
+    >
+      <h1
+        style={{
+          fontSize: "120px",
+          color: "#BD1947",
+        }}
+      >
+        Kiss The
+        <br />
+        Miss Goodbye
+      </h1>
 
-      <div className="text-center">
+      <button
+        style={{
+          marginTop: "20px",
+          padding: "12px 40px",
+          border: "2px solid #BD1947",
+          background: "transparent",
+          color: "#BD1947",
+        }}
+      >
+        OPEN
+      </button>
 
-        <h1 className="landing-title">
-          Kiss The
-          <br />
-          Miss Goodbye
-        </h1>
-
-        <button className="open-btn">
-          OPEN
-        </button>
-
-      </div>
-
-      <div className="footer-signature">
+      <div
+        style={{
+          position: "fixed",
+          bottom: "20px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          color: "gray",
+          fontSize: "12px",
+        }}
+      >
         <div>Created by Ida Slunjski</div>
         <div>June 2026</div>
       </div>
-
     </div>
   )
 }
