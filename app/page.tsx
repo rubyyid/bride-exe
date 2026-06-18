@@ -9,9 +9,7 @@ type Photo = {
 }
 
 export default function Home() {
-  const [photos, setPhotos] = React.useState<
-    Photo[]
-  >([])
+  const [photos, setPhotos] = React.useState<Photo[]>([])
 
   const fileInputRef =
     React.useRef<HTMLInputElement | null>(null)
@@ -62,9 +60,13 @@ export default function Home() {
     for (const file of Array.from(files)) {
       const fileName = `${Date.now()}-${file.name}`
 
-      await supabase.storage
+      const { error } = await supabase.storage
         .from('photos')
         .upload(fileName, file)
+
+      if (error) {
+        console.log(error)
+      }
     }
 
     await fetchPhotos()
@@ -81,14 +83,15 @@ export default function Home() {
       <div
         style={{
           textAlign: 'center',
-          marginTop: '40px',
+          marginTop: '30px',
+          marginBottom: '30px',
         }}
       >
         <h1
           className="tangerine-title"
           style={{
             fontSize:
-              'clamp(3rem, 10vw, 7rem)',
+              'clamp(2.8rem, 9vw, 6rem)',
             color: '#BD1947',
             lineHeight: '0.9',
             marginBottom: '10px',
@@ -102,10 +105,11 @@ export default function Home() {
         <p
           style={{
             color: '#666',
-            marginBottom: '30px',
+            marginBottom: '25px',
           }}
         >
-          Upload and share memories from Martinina djevojačka
+          Upload and share memories from
+          Martinina djevojačka
         </p>
 
         <input
@@ -128,33 +132,29 @@ export default function Home() {
             padding: '14px 40px',
             borderRadius: '12px',
             cursor: 'pointer',
-            fontSize: '18px',
+            fontSize: '16px',
           }}
         >
           UPLOAD PHOTO
         </button>
       </div>
 
-      <div
-        style={{
-          marginTop: '50px',
-          display: 'grid',
-          gridTemplateColumns:
-            'repeat(auto-fill,minmax(220px,1fr))',
-          gap: '16px',
-        }}
-      >
+      <div className="masonry-gallery">
         {photos.map((photo, index) => (
-          <img
+          <div
             key={index}
-            src={photo.url}
-            alt="memory"
-            style={{
-              width: '100%',
-              borderRadius: '20px',
-              objectFit: 'cover',
-            }}
-          />
+            className="masonry-item"
+          >
+            <img
+              src={photo.url}
+              alt="memory"
+              style={{
+                width: '100%',
+                display: 'block',
+                borderRadius: '18px',
+              }}
+            />
+          </div>
         ))}
       </div>
 
