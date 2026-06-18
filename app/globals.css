@@ -18,13 +18,14 @@ body {
 }
 
 .tangerine-title {
-  font-family: 'Tangerine', cursive;
+  font-family: 'Tangerine', cursive !important;
+  color: #BD1947 !important;
   font-weight: 700;
 
   text-shadow:
-    0 0 8px rgba(189, 25, 71, 0.15),
-    0 0 16px rgba(189, 25, 71, 0.12),
-    0 0 30px rgba(189, 25, 71, 0.08);
+    0 0 8px rgba(189,25,71,.15),
+    0 0 16px rgba(189,25,71,.12);
+
 
   animation: fadeInTitle 1.8s ease forwards;
 }
