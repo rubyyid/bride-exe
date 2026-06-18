@@ -10,6 +10,8 @@ type Photo = {
 
 export default function Home() {
   const [photos, setPhotos] = React.useState<Photo[]>([])
+  const [selectedPhoto, setSelectedPhoto] =
+    React.useState<Photo | null>(null)
 
   const fileInputRef =
     React.useRef<HTMLInputElement | null>(null)
@@ -60,14 +62,54 @@ export default function Home() {
     for (const file of Array.from(files)) {
       const fileName = `${Date.now()}-${file.name}`
 
-      const { error } = await supabase.storage
-        .from('photos')
-        .upload(fileName, file)
+      const { error } =
+        await supabase.storage
+          .from('photos')
+          .upload(fileName, file)
 
       if (error) {
         console.log(error)
       }
     }
+
+    await fetchPhotos()
+  }
+
+  const downloadPhoto = (
+    photoUrl: string
+  ) => {
+    const link =
+      document.createElement('a')
+
+    link.href = photoUrl
+    link.download = 'photo.jpg'
+
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+
+  const deletePhoto = async (
+    fileName: string
+  ) => {
+    const confirmed =
+      window.confirm(
+        'Delete photo?'
+      )
+
+    if (!confirmed) return
+
+    const { error } =
+      await supabase.storage
+        .from('photos')
+        .remove([fileName])
+
+    if (error) {
+      console.log(error)
+      return
+    }
+
+    setSelectedPhoto(null)
 
     await fetchPhotos()
   }
@@ -118,7 +160,9 @@ export default function Home() {
           accept="image/*"
           multiple
           onChange={handlePhotoUpload}
-          style={{ display: 'none' }}
+          style={{
+            display: 'none',
+          }}
         />
 
         <button
@@ -126,7 +170,8 @@ export default function Home() {
             fileInputRef.current?.click()
           }
           style={{
-            border: '2px solid #BD1947',
+            border:
+              '2px solid #BD1947',
             color: '#BD1947',
             background: 'transparent',
             padding: '14px 40px',
@@ -140,39 +185,129 @@ export default function Home() {
       </div>
 
       <div className="masonry-gallery">
-        {photos.map((photo, index) => (
-          <div
-            key={index}
-            className="masonry-item"
-          >
-            <img
-              src={photo.url}
-              alt="memory"
-              style={{
-                width: '100%',
-                display: 'block',
-                borderRadius: '18px',
-              }}
-            />
-          </div>
-        ))}
+        {photos.map(
+          (photo, index) => (
+            <div
+              key={index}
+              className="masonry-item"
+            >
+              <img
+                src={photo.url}
+                alt="memory"
+                onClick={() =>
+                  setSelectedPhoto(photo)
+                }
+                style={{
+                  width: '100%',
+                  display: 'block',
+                  borderRadius: '18px',
+                  cursor: 'pointer',
+                }}
+              />
+            </div>
+          )
+        )}
       </div>
 
-      <div
-        style={{
-          position: 'fixed',
-          bottom: '10px',
-          left: '50%',
-          transform:
-            'translateX(-50%)',
-          color: '#888',
-          fontSize: '12px',
-          fontFamily:
-            'Times New Roman, serif',
-        }}
-      >
-        Created by Ida Slunjski
-      </div>
+      {selectedPhoto && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background:
+              'rgba(0,0,0,0.95)',
+            zIndex: 9999,
+
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent:
+              'center',
+            alignItems: 'center',
+
+            padding: '20px',
+          }}
+        >
+          <button
+            onClick={() =>
+              setSelectedPhoto(null)
+            }
+            style={{
+              position: 'absolute',
+              top: '20px',
+              right: '20px',
+
+              background: 'none',
+              border: 'none',
+
+              color: 'white',
+
+              fontSize: '32px',
+
+              cursor: 'pointer',
+            }}
+          >
+            ✕
+          </button>
+
+          <img
+            src={selectedPhoto.url}
+            alt=""
+            style={{
+              maxWidth: '90%',
+              maxHeight: '75vh',
+              borderRadius: '20px',
+              objectFit: 'contain',
+            }}
+          />
+
+          <div
+            style={{
+              display: 'flex',
+              gap: '12px',
+              marginTop: '20px',
+            }}
+          >
+            <button
+              onClick={() =>
+                downloadPhoto(
+                  selectedPhoto.url
+                )
+              }
+              style={{
+                padding:
+                  '12px 20px',
+                borderRadius:
+                  '10px',
+                border: 'none',
+                cursor: 'pointer',
+              }}
+            >
+              Download
+            </button>
+
+            <button
+              onClick={() =>
+                deletePhoto(
+                  selectedPhoto.name
+                )
+              }
+              style={{
+                padding:
+                  '12px 20px',
+                borderRadius:
+                  '10px',
+                border: 'none',
+                cursor: 'pointer',
+                background:
+                  '#BD1947',
+                color: 'white',
+              }}
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
