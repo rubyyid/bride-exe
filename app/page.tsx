@@ -24,7 +24,7 @@ export default function Home() {
     const { data, error } = await supabase.storage
       .from('photos')
       .list('', {
-        limit: 1000,
+        limit: 5000,
         sortBy: {
           column: 'created_at',
           order: 'desc',
@@ -51,29 +51,116 @@ export default function Home() {
 
     setPhotos(photoUrls)
   }
+const compressImage = (
+  file: File
+): Promise<File> => {
+  return new Promise((resolve) => {
+    const img = new Image()
 
-  const handlePhotoUpload = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const files = event.target.files
+    img.onload = () => {
+      const canvas =
+        document.createElement('canvas')
 
-    if (!files) return
+      const MAX_SIZE = 1920
 
-    for (const file of Array.from(files)) {
-      const fileName = `${Date.now()}-${file.name}`
+      let width = img.width
+      let height = img.height
+
+      if (width > height) {
+        if (width > MAX_SIZE) {
+          height =
+            (height * MAX_SIZE) /
+            width
+          width = MAX_SIZE
+        }
+      } else {
+        if (height > MAX_SIZE) {
+          width =
+            (width * MAX_SIZE) /
+            height
+          height = MAX_SIZE
+        }
+      }
+
+      canvas.width = width
+      canvas.height = height
+
+      const ctx =
+        canvas.getContext('2d')
+
+      if (!ctx) {
+        resolve(file)
+        return
+      }
+
+      ctx.drawImage(
+        img,
+        0,
+        0,
+        width,
+        height
+      )
+
+      canvas.toBlob(
+        (blob) => {
+          if (!blob) {
+            resolve(file)
+            return
+          }
+
+          resolve(
+            new File(
+              [blob],
+              file.name,
+              {
+                type: 'image/jpeg',
+              }
+            )
+          )
+        },
+        'image/jpeg',
+        0.8
+      )
+    }
+
+    img.src =
+      URL.createObjectURL(file)
+  })
+}
+const handlePhotoUpload = async (
+  event: React.ChangeEvent<HTMLInputElement>
+) => {
+  const files = event.target.files
+
+  if (!files) return
+
+  for (const file of Array.from(files)) {
+    try {
+      const compressedFile =
+        await compressImage(file)
+
+      const fileName = `${Date.now()}-${
+        compressedFile.name
+      }`
 
       const { error } =
         await supabase.storage
           .from('photos')
-          .upload(fileName, file)
+          .upload(
+            fileName,
+            compressedFile
+          )
 
       if (error) {
         console.log(error)
       }
+    } catch (err) {
+      console.log(err)
     }
-
-    await fetchPhotos()
   }
+
+  await fetchPhotos()
+}
 
   const downloadPhoto = (
     photoUrl: string
@@ -190,12 +277,14 @@ export default function Home() {
               key={index}
               className="masonry-item"
             >
-              <img
-                src={photo.url}
-                alt="memory"
-                onClick={() =>
-                  setSelectedPhoto(photo)
-                }
+             <img
+  src={photo.url}
+  alt="memory"
+  loading="lazy"
+  decoding="async"
+  onClick={() =>
+    setSelectedPhoto(photo)
+  }
                 style={{
                   width: '100%',
                   display: 'block',
